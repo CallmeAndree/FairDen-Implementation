@@ -1,0 +1,15 @@
+{
+  "name": "three_moons_mixed",
+  "file_name": "../../data/three_moons_mixed.csv",
+  "sensitive_attrs": ["sensitive_attribute"],
+  "sensitive_values": ["1.0", "0.0"],
+  "columns": ["0","1"],
+  "categorical_features": [],
+  "n_clusters": 2,
+  "target": "cluster",
+  "n_samples": "all",
+  "DBSCAN_min_pts": 5,
+  "DBSCAN_eps": 0.2,
+  "DCSI_min_pts": 4,
+  "n_clusters_db": 3
+}

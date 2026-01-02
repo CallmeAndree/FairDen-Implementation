@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use FairDen, please cite it as follows"
+authors:
+- family-names: "Krieger"
+  given-names: "Lena"
+  orcid: https://orcid.org/0009-0005-1894-7539
+- family-names: "Beer"
+  given-names: "Anna"
+  orcid: https://orcid.org/0000-0002-6890-997X
+- family-names: "Matthews"
+  given-names: "Pernille"
+  orcid: https://orcid.org/0000-0001-8694-5803
+- family-names: "Thiesson"
+  given-names: "Anneka Myrup"
+- family-names: "Assent"
+  given-names: "Ira"
+  orcid: https://orcid.org/0000-0002-1091-9948
+title: "FairDen"
+version: 1.0.0
+date-released: 2025-02-26
+url: "https://jugit.fz-juelich.de/ias-8/fairden"
+preferred-citation:
+  type: unpublished
+  authors:
+    - family-names: "Krieger"
+      given-names: "Lena"
+      orcid: https://orcid.org/0009-0005-1894-7539
+    - family-names: "Beer"
+      given-names: "Anna"
+      orcid: https://orcid.org/0000-0002-6890-997X
+    - family-names: "Matthews"
+      given-names: "Pernille"
+      orcid: https://orcid.org/0000-0001-8694-5803
+    - family-names: "Thiesson"
+      given-names: "Anneka Myrup"
+    - family-names: "Assent"
+      given-names: "Ira"
+      orcid: https://orcid.org/0000-0002-1091-9948
+  title: "FairDen: Fair Density-Based Clustering"
+  year: 2025
+  publisher: "ICLR"
+  note: "Accepted for publication at The Thirteenth International Conference on Learning Representations, (ICLR) 2025"
