@@ -18,17 +18,20 @@ from src.experiments.categorical_experiments import categorical_experiments
 from src.experiments.k_line_experiment import k_line_multi
 from src.experiments.realworld_experiment import realworld_experiment
 from src.experiments.adult_experiment import adult_experiment
+from src.experiments.compas_experiment import compas_experiment
 
 # perform all experiments
 def main():
-    # Multiple sensitive attributes
-    adult_experiment()
-    # Categorical experiments
-    categorical_experiments()
-    # K-Experiments
-    k_line_multi()
-    # Real-World experiments
-    realworld_experiment()
+    # # Multiple sensitive attributes
+    # adult_experiment()
+    # # Categorical experiments
+    # categorical_experiments()
+    # # K-Experiments
+    # k_line_multi()
+    # # Real-World experiments
+    # realworld_experiment()
+    # COMPAS experiments
+    compas_experiment()
 
 
 

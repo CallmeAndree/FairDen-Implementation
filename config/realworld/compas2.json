@@ -1,0 +1,31 @@
+{
+    "name": "compas2",
+    "file_name": "data/realworld/compas-scores-two-years.csv",
+    "sensitive_attrs": [
+        "race",
+        "sex"
+    ],
+    "sensitive_values": [
+        "African-American",
+        "Caucasian",
+        "Hispanic",
+        "Other",
+        "Male",
+        "Female"
+    ],
+    "columns": [
+        "age",
+        "priors_count",
+        "juv_fel_count",
+        "juv_misd_count"
+    ],
+    "categorical_features": [],
+    "n_clusters": 2,
+    "target": "two_year_recid",
+    "random_state": 42,
+    "n_samples": 2000,
+    "DBSCAN_min_pts": 5,
+    "DBSCAN_eps": 2.0,
+    "DCSI_min_pts": 5,
+    "n_clusters_db": 2
+}

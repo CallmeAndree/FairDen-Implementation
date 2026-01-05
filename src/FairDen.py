@@ -136,7 +136,10 @@ class FairDen(object):
         Y = self.eig_vec[:, 0:k]
         H = self.Z @ self.Q_inv @ Y
         if np.iscomplex(H).any():
-            return None
+            # Handle numerical noise from sqrtm() - if imaginary part is negligible, take real part
+            if np.abs(H.imag).max() > 1e-6:
+                return None
+            H = H.real
         # repeat is True when there are less than k non noise clusters
         while repeat:
             clustering = KMeans(n_clusters=k, n_init=10).fit(H)
