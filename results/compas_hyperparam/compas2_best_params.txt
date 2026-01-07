@@ -1,0 +1,8 @@
+COMPAS (compas2) - Best Hyperparameters (by DCSI)
+==================================================
+minPts: 15
+epsilon: 0.2
+DCSI: 0.9879
+Balance: 0.5477
+Clusters: 3
+Noise%: 29.07%

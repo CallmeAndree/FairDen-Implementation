@@ -1,0 +1,35 @@
+% !TEX root = ../main.tex
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc} % Hỗ trợ mã hóa UTF-8
+\usepackage[T5]{fontenc}    % Hỗ trợ font tiếng Việt
+\usepackage{vietnam} % Gói hỗ trợ tiếng Việt
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{background}
+\usepackage{float}
+\usepackage{multirow}
+\geometry{a4paper,total={180mm,250mm},left=20mm,top=30mm,}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{tocloft}
+\usepackage[english]{babel}
+\usepackage[authoryear]{natbib}
+\thispagestyle{empty}
+
+\renewcommand{\cftsecfont}{\color{blue}\bfseries}
+\renewcommand{\cftsubsecfont}{\color{blue}}
+\renewcommand{\cftsubsubsecfont}{\color{blue}}
+\renewcommand{\cftsecpagefont}{\color{blue}}
+\renewcommand{\cftsubsecpagefont}{\color{blue}}
+\renewcommand{\cftsubsubsecpagefont}{\color{blue}}
+
+\backgroundsetup{
+scale=8,
+angle=0,
+firstpage=true,
+opacity=0.1,
+color=black,
+contents={\begin{tikzpicture}[remember picture,overlay]
+\node at ([yshift=10pt,xshift=0pt]current page.center)
+{\includegraphics[width=1cm]{white.png}};
+\end{tikzpicture}}}

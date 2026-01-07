@@ -1,0 +1,8 @@
+Student Performance (student2) - Best Hyperparameters (by DCSI)
+==================================================
+minPts: 5
+epsilon: 1.5
+DCSI: 0.8000
+Balance: 0.7297
+Clusters: 2
+Noise%: 5.30%

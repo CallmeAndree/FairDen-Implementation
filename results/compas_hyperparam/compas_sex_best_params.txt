@@ -1,0 +1,8 @@
+COMPAS (compas_sex) - Best Hyperparameters (by DCSI)
+==================================================
+minPts: 15
+epsilon: 0.3
+DCSI: 0.9808
+Balance: 0.6541
+Clusters: 3
+Noise%: 27.63%

@@ -1,0 +1,8 @@
+COMPAS Dataset - Best Hyperparameters (by DCSI)
+==================================================
+minPts: 15
+epsilon: 0.2
+DCSI: 0.9879
+Balance: 0.5836
+Clusters: 3
+Noise%: 0.31%

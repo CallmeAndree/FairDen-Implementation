@@ -1,0 +1,204 @@
+%==============================================================================
+\section{Giới thiệu Dataset}
+%==============================================================================
+
+\subsection{Các Dataset trong bài báo gốc}
+
+Dựa vào nội dung trong bài báo \textbf{FairDen} (cụ thể là \textbf{Section 3.3} và \textbf{Appendix C.3}), tác giả đã sử dụng \textbf{4 bộ dữ liệu thực tế (Real-world datasets)} và \textbf{1 bộ dữ liệu giả lập (Synthetic data)} để thực nghiệm.
+
+Dưới đây là mô tả chi tiết từng bộ dữ liệu:
+
+\subsubsection{Adult (Census Income)}
+
+Đây là bộ dữ liệu kinh điển nhất trong các bài toán về công bằng (Fairness).
+
+\begin{itemize}
+    \item \textbf{Nguồn gốc:} Dữ liệu điều tra dân số Mỹ năm 1994 (UCI Machine Learning Repository).
+    \item \textbf{Mục tiêu gốc:} Dự đoán xem thu nhập của một người có vượt quá 50.000\$/năm hay không.
+    \item \textbf{Đặc điểm dữ liệu:} Chứa các thông tin nhân khẩu học như tuổi, trình độ giáo dục, nghề nghiệp, giờ làm việc...
+    \item \textbf{Thuộc tính nhạy cảm (Sensitive Attributes) được tác giả dùng:}
+    \begin{itemize}
+        \item \textbf{Giới tính (Gender):} Nam / Nữ.
+        \item \textbf{Chủng tộc (Race):} 5 nhóm (White, Black, Asian-Pac-Islander, Amer-Indian-Eskimo, Other).
+        \item \textbf{Tình trạng hôn nhân (Marital Status):} Đã kết hôn, Độc thân, Ly hôn...
+    \end{itemize}
+    \item \textbf{Xử lý của tác giả:}
+    \begin{itemize}
+        \item Lấy mẫu ngẫu nhiên \textbf{2.000 điểm dữ liệu}.
+        \item Loại bỏ các bản ghi trùng lặp.
+    \end{itemize}
+    \item \textbf{Mục đích chính:} Dùng để kiểm thử tính năng \textbf{Đa thuộc tính nhạy cảm (Multiple sensitive attributes)} và \textbf{Thuộc tính nhạy cảm phi nhị phân} (Non-binary, ví dụ như Chủng tộc có 5 nhóm).
+\end{itemize}
+
+\subsubsection{Bank Marketing (Bank)}
+
+Dữ liệu liên quan đến chiến dịch marketing trực tiếp của một ngân hàng Bồ Đào Nha.
+
+\begin{itemize}
+    \item \textbf{Nguồn gốc:} Moro et al., 2014.
+    \item \textbf{Mục tiêu gốc:} Dự đoán khách hàng có đăng ký gửi tiết kiệm kỳ hạn (term deposit) hay không.
+    \item \textbf{Đặc điểm dữ liệu:} Gồm 17 thuộc tính hỗn hợp (số và phân loại) như số dư, công việc, nhà ở, khoản vay...
+    \item \textbf{Thuộc tính nhạy cảm:}
+    \begin{itemize}
+        \item \textbf{Tình trạng hôn nhân (Marital):} 3 nhóm (Married, Divorced, Single).
+        \item \textbf{Tuổi (Age):} Được chia nhóm (ví dụ: trẻ, trung niên, già).
+    \end{itemize}
+    \item \textbf{Xử lý của tác giả:}
+    \begin{itemize}
+        \item Lấy mẫu ngẫu nhiên \textbf{5.000 điểm dữ liệu}.
+        \item Sử dụng 3 biến số và 2 biến phân loại.
+    \end{itemize}
+    \item \textbf{Mục đích chính:} Kiểm chứng khả năng xử lý \textbf{Dữ liệu hỗn hợp (Mixed-type data)} bao gồm cả dữ liệu số và dữ liệu phân loại (categorical).
+\end{itemize}
+
+\subsubsection{Communities and Crime}
+
+Dữ liệu kết hợp giữa điều tra dân số, thực thi pháp luật và dữ liệu tội phạm FBI.
+
+\begin{itemize}
+    \item \textbf{Nguồn gốc:} UCI (1990 US Census + 1995 FBI UCR).
+    \item \textbf{Mục tiêu gốc:} Dự đoán tỷ lệ tội phạm bạo lực trong cộng đồng.
+    \item \textbf{Đặc điểm dữ liệu:} Rất nhiều thuộc tính số (67 numerical features).
+    \item \textbf{Thuộc tính nhạy cảm:}
+    \begin{itemize}
+        \item \textbf{Chủng tộc (Race):} Tác giả tạo ra thuộc tính nhị phân dựa trên tỷ lệ người da đen trong cộng đồng (chia thành nhóm cao/thấp).
+    \end{itemize}
+    \item \textbf{Xử lý của tác giả:}
+    \begin{itemize}
+        \item Loại bỏ các điểm trùng lặp.
+    \end{itemize}
+    \item \textbf{Mục đích chính:} Kiểm thử trên dữ liệu có số chiều cao (High dimensionality) và thuần túy là dữ liệu số.
+\end{itemize}
+
+\subsubsection{Diabetes (Tiểu đường)}
+
+Dữ liệu y tế từ 130 bệnh viện tại Mỹ.
+
+\begin{itemize}
+    \item \textbf{Nguồn gốc:} Strack et al., 2014.
+    \item \textbf{Mục tiêu gốc:} Dự đoán xem bệnh nhân có tái nhập viện trong vòng 30 ngày hay không.
+    \item \textbf{Đặc điểm dữ liệu:} Hồ sơ bệnh án.
+    \item \textbf{Thuộc tính nhạy cảm:}
+    \begin{itemize}
+        \item \textbf{Giới tính (Gender):} Nam / Nữ.
+        \item \textbf{Tuổi (Age):} Chia thành 2 nhóm ($<$50 tuổi và $\geq$50 tuổi).
+    \end{itemize}
+    \item \textbf{Xử lý của tác giả:}
+    \begin{itemize}
+        \item Lấy mẫu \textbf{5.000 điểm dữ liệu}.
+        \item Chọn 7 thuộc tính số.
+    \end{itemize}
+    \item \textbf{Mục đích chính:} Kiểm thử tính công bằng trong lĩnh vực y tế (Healthcare).
+\end{itemize}
+
+\subsubsection{Dữ liệu giả lập (Synthetic Data - DENSIRED)}
+
+Ngoài dữ liệu thực, tác giả sử dụng bộ sinh dữ liệu có tên \textbf{DENSIRED} (DENSIty-based Reproducible Experimental Data).
+
+\begin{itemize}
+    \item \textbf{Mục đích:} Chỉ dùng cho \textbf{Thực nghiệm thời gian chạy (Runtime Experiments)} (Phụ lục A.3).
+    \item \textbf{Lý do:} Để đo độ phức tạp thuật toán, họ cần tự do điều chỉnh:
+    \begin{itemize}
+        \item Số lượng điểm dữ liệu ($n$) tăng dần (từ 1.000 lên 10.000...).
+        \item Số chiều dữ liệu ($d$).
+        \item Số cụm ($k$).
+    \end{itemize}
+    \item \textbf{Thuộc tính nhạy cảm:} Được gán ngẫu nhiên (50\% nhóm 0, 50\% nhóm 1) vì mục tiêu ở đây chỉ là đo tốc độ chứ không phải chất lượng.
+\end{itemize}
+
+\textbf{Tóm lại:} Tác giả chọn các bộ dữ liệu này để đảm bảo tính đa dạng:
+\begin{enumerate}
+    \item \textbf{Adult:} Đa dạng về nhóm nhạy cảm (Chủng tộc, Giới tính).
+    \item \textbf{Bank:} Đa dạng về loại dữ liệu (Số + Chữ).
+    \item \textbf{Communities:} Dữ liệu số chiều cao.
+    \item \textbf{Diabetes:} Ứng dụng y tế.
+\end{enumerate}
+
+\subsection{Dataset nhóm chọn}
+
+Ngoài 4 bộ dữ liệu gốc, nhóm bổ sung thêm 2 bộ dữ liệu mới để mở rộng phạm vi thực nghiệm: \textbf{COMPAS} (lĩnh vực tư pháp) và \textbf{Student Performance} (lĩnh vực giáo dục).
+
+\subsubsection{COMPAS (Correctional Offender Management Profiling)}
+
+\paragraph{Tổng quan}
+
+Đây là bộ dữ liệu COMPAS đã được tiền xử lý từ dữ liệu gốc của ProPublica \citep{propublica2016}, chứa thông tin về các bị cáo hình sự tại hạt Broward, Florida. Dữ liệu được lọc để chỉ giữ lại những người có đủ thời gian theo dõi 2 năm nhằm xác định chính xác hành vi tái phạm tội.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Thuộc tính} & \textbf{Giá trị} \\
+\midrule
+Số lượng mẫu ban đầu ($n$) & 7.214 bị cáo \\
+Số thuộc tính số ($d_n$) & 4 \\
+Số thuộc tính phân loại ($d_c$) & 1 \\
+\bottomrule
+\end{tabular}
+\caption{Tổng quan dataset COMPAS}
+\end{table}
+
+\paragraph{Thuộc tính Nhạy cảm (Sensitive Attributes)}
+
+\begin{itemize}
+    \item \textbf{Race (Chủng tộc):} 4 nhóm (African-American 51.2\%, Caucasian 34.0\%, Hispanic 8.8\%, Other 5.2\%)
+    \item \textbf{Sex (Giới tính):} 2 nhóm (Male 80.7\%, Female 19.3\%)
+\end{itemize}
+
+\paragraph{Thuộc tính Đầu vào cho Phân cụm}
+
+\begin{itemize}
+    \item \textbf{Thuộc tính Số ($d_n = 4$):} \texttt{age}, \texttt{priors\_count}, \texttt{juv\_fel\_count}, \texttt{juv\_misd\_count}
+    \item \textbf{Thuộc tính Phân loại ($d_c = 1$):} \texttt{c\_charge\_degree} (F: Felony 64.7\%, M: Misdemeanor 35.3\%)
+\end{itemize}
+
+
+
+%------------------------------------------------------------------------------
+
+\subsubsection{Student Performance (Kết quả Học tập)}
+
+\paragraph{Tổng quan}
+
+Bộ dữ liệu này \citep{cortez2008} dự đoán kết quả học tập của học sinh trung học dựa trên các đặc điểm xã hội, nhân khẩu học và hành vi.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Thuộc tính} & \textbf{Giá trị} \\
+\midrule
+Số lượng mẫu ($n$) & 649 học sinh \\
+Số thuộc tính số ($d_n$) & 5 \\
+Số thuộc tính phân loại ($d_c$) & 2 \\
+\bottomrule
+\end{tabular}
+\caption{Tổng quan dataset Student Performance}
+\end{table}
+
+\paragraph{Thuộc tính Nhạy cảm}
+
+\begin{itemize}
+    \item \textbf{Sex (Giới tính):} Female 59\%, Male 41\%
+    \item \textbf{Address (Địa chỉ):} Urban 70\%, Rural 30\%
+\end{itemize}
+
+\paragraph{Thuộc tính Đầu vào cho Phân cụm}
+
+Thuộc tính được lựa chọn dựa trên phân tích tương quan và phương sai:
+
+\begin{itemize}
+    \item \textbf{Thuộc tính Số ($d_n = 5$):}
+    \begin{itemize}
+        \item \texttt{failures}: Số lần rớt môn (tương quan -0.39 với điểm)
+        \item \texttt{studytime}: Thời gian học tập (+0.25)
+        \item \texttt{absences}: Số buổi nghỉ học
+        \item \texttt{Dalc}: Mức độ uống rượu bia
+        \item \texttt{Medu}: Trình độ học vấn mẹ (+0.24)
+    \end{itemize}
+    \item \textbf{Thuộc tính Phân loại ($d_c = 2$):}
+    \begin{itemize}
+        \item \texttt{higher}: Mong muốn học đại học (Yes/No)
+        \item \texttt{internet}: Có kết nối Internet (Yes/No)
+    \end{itemize}
+\end{itemize}

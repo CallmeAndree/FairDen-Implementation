@@ -540,6 +540,20 @@ class DataLoader(object):
                 )
             if len(self.__data_config['categorical_features']) != 0:
                 self.__data_to_encode = self.__data[self.__data_config['categorical_features']]
+        elif "student" in self.__name:
+            # Student Performance dataset
+            self.__data = pd.read_csv(self.__data_config['file_name'])
+            self.__data = self.__data.dropna(axis="columns")
+            self.__data = self.__data.drop_duplicates(
+                subset=self.__data_config['sensitive_attrs'] + self.__data_config['columns'], ignore_index=True
+            )
+            if self.__data_config['n_samples'] != 'all':
+                self.__data = self.__data.sample(
+                    n=self.__data_config['n_samples'], random_state=RANDOM_STATE
+                )
+
+            if len(self.__data_config['categorical_features']) != 0:
+                self.__data_to_encode = self.__data[self.__data_config['categorical_features']]
         elif "synthetic" in self.__name or "three_moons" in self.__name:
             # read data from csv and remove 'Unnamed: 0' column
             if 'three_moons' in self.__name:

@@ -19,19 +19,22 @@ from src.experiments.k_line_experiment import k_line_multi
 from src.experiments.realworld_experiment import realworld_experiment
 from src.experiments.adult_experiment import adult_experiment
 from src.experiments.compas_experiment import compas_experiment
+from src.experiments.student_experiment import student_experiment
 
 # perform all experiments
 def main():
-    # # Multiple sensitive attributes
-    # adult_experiment()
-    # # Categorical experiments
-    # categorical_experiments()
-    # # K-Experiments
-    # k_line_multi()
-    # # Real-World experiments
-    # realworld_experiment()
+    # Multiple sensitive attributes
+    # adult_experiment()  # DONE - completed adult_gmr + adult_g, adult_m, adult_r, adult_gm, adult_gr, adult_mr
+    # Categorical experiments
+    # categorical_experiments()  # DONE - completed bank, adult2, adult5 + bank3, adult, adult4
+    # K-Experiments
+    # k_line_multi()  # DONE - completed adult2 + adult5
+    # Real-World experiments
+    # realworld_experiment()  # INCOMPLETE - adult4 done, diabetes interrupted (Fairlet MCF), communities not started
     # COMPAS experiments
-    compas_experiment()
+    # compas_experiment()  # DONE
+    # Student Performance experiments
+    student_experiment()
 
 
 

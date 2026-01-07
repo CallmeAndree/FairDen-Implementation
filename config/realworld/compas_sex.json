@@ -1,0 +1,28 @@
+{
+    "name": "compas_sex",
+    "file_name": "data/realworld/compas-scores-two-years.csv",
+    "sensitive_attrs": [
+        "sex"
+    ],
+    "sensitive_values": [
+        "Male",
+        "Female"
+    ],
+    "columns": [
+        "age",
+        "priors_count",
+        "juv_fel_count",
+        "juv_misd_count"
+    ],
+    "categorical_features": [
+        "c_charge_degree"
+    ],
+    "n_clusters": 3,
+    "target": "two_year_recid",
+    "random_state": 42,
+    "n_samples": "all",
+    "DBSCAN_min_pts": 15,
+    "DBSCAN_eps": 0.3,
+    "DCSI_min_pts": 5,
+    "n_clusters_db": 3
+}

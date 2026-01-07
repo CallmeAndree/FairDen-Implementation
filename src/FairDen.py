@@ -107,7 +107,18 @@ class FairDen(object):
         self.Z = scipy.linalg.null_space(self.F.conj().T, rcond=0.001)
         # Q sqrtm
         Q = sqrtm(self.Z.conj().T @ D @ self.Z)
-        self.Q_inv = np.linalg.pinv(Q)
+        # Handle complex values from sqrtm
+        if np.iscomplex(Q).any():
+            if np.abs(Q.imag).max() < 1e-6:
+                Q = Q.real
+            else:
+                raise ValueError("Q matrix has significant complex values")
+        try:
+            self.Q_inv = np.linalg.pinv(Q)
+        except np.linalg.LinAlgError:
+            # Fallback: add small regularization to make SVD converge
+            Q_reg = Q + 1e-10 * np.eye(Q.shape[0])
+            self.Q_inv = np.linalg.pinv(Q_reg)
         del Q
 
         Z_D = (self.Z.conj().T @ self.L @ self.Z)

@@ -1,0 +1,31 @@
+\documentclass[12pt,a4paper]{article}
+
+% ===== PACKAGES =====
+% Vietnamese font support for XeLaTeX/LuaLaTeX
+\usepackage{fontspec}
+\usepackage[vietnamese]{babel}
+\setmainfont{Times New Roman}  % Or: DejaVu Serif, Liberation Serif
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[authoryear]{natbib}
+
+% ===== PAGE SETUP =====
+\geometry{a4paper, margin=2.5cm}
+
+\begin{document}
+
+% Section 1: Giới thiệu Dataset
+\input{content/section1_dataset}
+
+% Section 2: Thiết lập thực nghiệm
+\input{content/section2_experiment}
+
+% ===== REFERENCES =====
+\bibliographystyle{plainnat}
+\bibliography{ref}
+
+\end{document}

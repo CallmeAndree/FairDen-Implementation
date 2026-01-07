@@ -1,0 +1,135 @@
+%==============================================================================
+\section{Thiết lập thực nghiệm}
+%==============================================================================
+
+\subsection{Không gian tham số tìm kiếm}
+
+Theo phương pháp của bài báo gốc, các tham số DBSCAN được tối ưu như sau:
+\begin{itemize}
+    \item $minPts \in \{4, 5, 2d-1, 10, 15\}$ (trong đó $d$ là số chiều dữ liệu)
+    \item $\varepsilon \in \{0.01, 0.05, 0.1, ..., 3.75\}$ (33 giá trị)
+    \item $minPts_{DCSI} = 5$ (cố định cho đánh giá DCSI)
+    \item \textbf{Tiêu chí tối ưu:} Tối đa hóa DCSI score
+\end{itemize}
+
+%------------------------------------------------------------------------------
+
+\subsection{Kết quả tối ưu cho Dataset COMPAS}
+
+\subsubsection{Cấu hình tốt nhất}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Config} & \textbf{Sensitive} & $d$ & $minPts$ & $\varepsilon$ & \textbf{DCSI} & \textbf{Balance} \\
+\midrule
+compas & race (4) & 4+1 & 15 & 0.3 & 0.9877 & 0.5383 \\
+compas\_sex & sex (2) & 4+1 & 15 & 0.3 & 0.9808 & 0.6541 \\
+compas2 & race+sex & 4+1 & 15 & 0.2 & 0.9879 & 0.5477 \\
+\bottomrule
+\end{tabular}
+\caption{Kết quả tối ưu hyperparameters cho COMPAS}
+\end{table}
+
+\textbf{Nhận xét:}
+\begin{itemize}
+    \item DCSI rất cao ($>0.98$) cho thấy chất lượng phân cụm tốt.
+    \item Balance ở mức trung bình ($\sim$0.54-0.65), FairDen sẽ cải thiện chỉ số này.
+    \item $minPts = 15$ cho kết quả tốt nhất, lớn hơn công thức $2d-1=7$.
+\end{itemize}
+
+\subsubsection{$\varepsilon$ tốt nhất cho mỗi $minPts$}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{l|ccc|ccc|ccc}
+\toprule
+& \multicolumn{3}{c|}{\textbf{Race only}} & \multicolumn{3}{c|}{\textbf{Sex only}} & \multicolumn{3}{c}{\textbf{Race + Sex}} \\
+$minPts$ & $\varepsilon$ & DCSI & Cl. & $\varepsilon$ & DCSI & Cl. & $\varepsilon$ & DCSI & Cl. \\
+\midrule
+4 & 1.0 & 0.88 & 12 & 0.8 & 0.89 & 11 & 0.5 & 0.95 & 9 \\
+5 & 0.4 & 0.93 & 8 & 0.6 & 0.91 & 11 & 0.6 & 0.95 & 9 \\
+7 & 0.1 & 0.95 & 22 & 0.3 & 0.96 & 5 & 0.6 & 0.94 & 8 \\
+10 & 0.4 & 0.97 & 5 & 0.4 & 0.96 & 5 & 0.6 & 0.96 & 5 \\
+\textbf{15} & \textbf{0.3} & \textbf{0.98} & \textbf{3} & \textbf{0.3} & \textbf{0.98} & \textbf{3} & \textbf{0.2} & \textbf{0.99} & \textbf{3} \\
+\bottomrule
+\end{tabular}
+\caption{$\varepsilon$ tối ưu cho mỗi giá trị $minPts$ theo từng cấu hình COMPAS}
+\end{table}
+
+%------------------------------------------------------------------------------
+
+\subsection{Kết quả tối ưu cho Dataset Student Performance}
+
+\subsubsection{Cấu hình tốt nhất}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Config} & \textbf{Sensitive} & $d$ & $minPts$ & $\varepsilon$ & \textbf{DCSI} & \textbf{Balance} \\
+\midrule
+student & sex (2) & 5+2 & 4 & 1.4 & 0.8000 & 0.7331 \\
+student\_address & address (2) & 5+2 & 5 & 1.4 & 0.8000 & 0.9916 \\
+student2 & address+sex & 5+2 & 5 & 1.5 & 0.8000 & 0.7297 \\
+\bottomrule
+\end{tabular}
+\caption{Kết quả tối ưu hyperparameters cho Student Performance}
+\end{table}
+
+\textbf{Nhận xét:}
+\begin{itemize}
+    \item DCSI ổn định ở 0.80 -- thấp hơn COMPAS nhưng vẫn chấp nhận được.
+    \item Config \texttt{student\_address} có Balance rất cao (0.99) -- gần đạt công bằng hoàn hảo giữa nhóm Urban và Rural.
+    \item $minPts$ nhỏ (4-5) phù hợp với dataset có kích thước nhỏ (649 mẫu).
+\end{itemize}
+
+\subsubsection{$\varepsilon$ tốt nhất cho mỗi $minPts$}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{l|ccc|ccc|ccc}
+\toprule
+& \multicolumn{3}{c|}{\textbf{Sex only}} & \multicolumn{3}{c|}{\textbf{Address only}} & \multicolumn{3}{c}{\textbf{Address + Sex}} \\
+$minPts$ & $\varepsilon$ & DCSI & Cl. & $\varepsilon$ & DCSI & Cl. & $\varepsilon$ & DCSI & Cl. \\
+\midrule
+\textbf{4} & \textbf{1.4} & \textbf{0.80} & \textbf{2} & 1.4 & 0.73 & 2 & -- & -- & -- \\
+\textbf{5} & 1.4 & 0.80 & 2 & \textbf{1.4} & \textbf{0.80} & \textbf{2} & \textbf{1.5} & \textbf{0.80} & \textbf{2} \\
+9 & 0.6 & 0.96 & 2 & 0.6 & 0.96 & 2 & 0.4 & 0.93 & 8 \\
+10 & 0.8 & 0.93 & 4 & 0.8 & 0.93 & 4 & 0.8 & 0.93 & 8 \\
+15 & 1.0 & 0.67 & 3 & 1.0 & 0.67 & 3 & 0.8 & 0.92 & 4 \\
+\bottomrule
+\end{tabular}
+\caption{$\varepsilon$ tối ưu cho mỗi giá trị $minPts$ theo từng cấu hình Student}
+\end{table}
+
+%------------------------------------------------------------------------------
+
+\subsection{So sánh với các Dataset trong bài báo gốc}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Dataset} & Sens. Attr. $(g(a))$ & $d_n (+d_c)$ & $minPts$ & $\varepsilon$ \\
+\midrule
+\textit{Adult} (\cite{kohavi1996}) & race (5) & 5 (+2) & 4 & 2.1 \\
+\textit{Adult} (\cite{kohavi1996}) & gender (2) & 5 (+2) & 9 & 0.15 \\
+\textit{Adult} (\cite{kohavi1996}) & marital status (7) & 5 (+2) & 4 & 1.2 \\
+\textit{Bank} (\cite{moro2014}) & marital (3) & 3 (+2) & 4 & 1.5 \\
+\textit{Communities} \citep{asuncion2007} & black (2) & 67 & 10 & 3.25 \\
+\textit{diabetes} \citep{strack2014} & gender (2) & 7 & 10 & 0.45 \\
+\midrule
+\textbf{COMPAS (\cite{propublica2016})} & \textbf{race (4)} & \textbf{4 (+1)} & \textbf{15} & \textbf{0.3} \\
+\textbf{COMPAS (\cite{propublica2016})} & \textbf{sex (2)} & \textbf{4 (+1)} & \textbf{15} & \textbf{0.3} \\
+\textbf{Student (\cite{cortez2008})} & \textbf{sex (2)} & \textbf{5 (+2)} & \textbf{4} & \textbf{1.4} \\
+\textbf{Student (\cite{cortez2008})} & \textbf{address (2)} & \textbf{5 (+2)} & \textbf{5} & \textbf{1.4} \\
+\bottomrule
+\end{tabular}
+\caption{So sánh thiết lập thực nghiệm với các dataset trong bài báo gốc}
+\end{table}
+

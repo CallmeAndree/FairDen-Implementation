@@ -37,8 +37,8 @@ def compas_experiment():
     - compas: race only as sensitive attribute
     - compas2: race + sex as combined sensitive attributes
     """
-    # Experiment 1: race only, Experiment 2: race + sex
-    DATANAMES = ["compas", "compas2"]
+    # Experiment 1: race only, Experiment 2: race + sex, Experiment 3: sex only
+    DATANAMES = ["compas", "compas2", "compas_sex"]
     # algorithms that can handle non-binary sensitive attributes
     ALGORITHMS = ['FairDen', 'FairSC_normalized', 'FairSC']
     
