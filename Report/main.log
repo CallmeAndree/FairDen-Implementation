@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.11.24)  7 JAN 2026 22:27
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.11.24)  8 JAN 2026 22:32
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -469,49 +469,7 @@ Overfull \hbox (19.69536pt too wide) in paragraph at lines 96--97
 \TU/TimesNewRoman(0)/m/n/12 Ngoài dữ liệu thực, tác giả sử dụng bộ sinh dữ liệu có tên \TU/TimesNewRoman(0)/b/n/12 DENSIRED \TU/TimesNewRoman(0)/m/n/12 (DENSIty-based Reproducible
  []
 
-[2] [3]) (./content/section2_experiment.tex [4]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 42.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\varepsilon' on input line 42.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 42.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 42.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 42.
-
-[5]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 89.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\varepsilon' on input line 89.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 89.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 89.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 89.
-
-) (./main.bbl
+[2] [3]) (./content/section2_experiment.tex [4] [5]) (./main.bbl
 Underfull \hbox (badness 1127) in paragraph at lines 9--13
 []\TU/TimesNewRoman(0)/m/n/12 Julia Angwin, Jeff Larson, Surya Mattu, and Lauren Kirchner.  Machine bias: There’s
  []
@@ -537,7 +495,7 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8180EDB7654F91BC8EC8850141CCE48D;4258.
+(rerunfilecheck)             Checksum: E378ADA2BD732062591D183EA0F8EA37;4328.
  ) 
 Here is how much of TeX's memory you used:
  13359 strings out of 474878

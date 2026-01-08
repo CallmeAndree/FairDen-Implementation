@@ -20,21 +20,21 @@ from src.experiments.realworld_experiment import realworld_experiment
 from src.experiments.adult_experiment import adult_experiment
 from src.experiments.compas_experiment import compas_experiment
 from src.experiments.student_experiment import student_experiment
+from src.experiments.compas_hyperparam_search import compas_hyperparam_search
+from src.experiments.student_hyperparam_search import student_hyperparam_search
 
 # perform all experiments
 def main():
-    # Multiple sensitive attributes
-    # adult_experiment()  # DONE - completed adult_gmr + adult_g, adult_m, adult_r, adult_gm, adult_gr, adult_mr
-    # Categorical experiments
-    # categorical_experiments()  # DONE - completed bank, adult2, adult5 + bank3, adult, adult4
-    # K-Experiments
-    # k_line_multi()  # DONE - completed adult2 + adult5
-    # Real-World experiments
-    # realworld_experiment()  # INCOMPLETE - adult4 done, diabetes interrupted (Fairlet MCF), communities not started
-    # COMPAS experiments
-    compas_experiment()  # DONE
-    # Student Performance experiments
-    # student_experiment()
+    # UNCOMMENT TO RUN
+    # adult_experiment() # Multiple sensitive attributes
+    # categorical_experiments() # Categorical experiments
+    # k_line_multi()  # K-Experiments
+    # realworld_experiment() # Real-World experiments
+    # compas_experiment()  # COMPAS experiments
+    # student_experiment() # Student Performance experiments
+    # compas_hyperparam_search()  # Search optimal DBSCAN params for COMPAS
+    # student_hyperparam_search()  # Search optimal DBSCAN params for Student
+    pass
 
 
 

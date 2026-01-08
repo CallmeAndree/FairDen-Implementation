@@ -18,13 +18,11 @@ import numpy as np
 # Define paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS_DIR = os.path.join(BASE_DIR, 'results')
-OUTPUT_DIR = os.path.join(BASE_DIR, 'Report', 'fig')
+OUTPUT_DIR = os.path.join(BASE_DIR, 'visualization')
 
 # Experiment directories to process
 EXPERIMENT_DIRS = [
-    'rw_experiment',
-    'student_experiment',
-    'compas_experiment'
+    'rw_experiment'
 ]
 
 # Algorithm colors (matching the reference image exactly)
@@ -106,12 +104,7 @@ def parse_balance_value(value):
 
 
 def load_results(experiment_dir: str) -> pd.DataFrame:
-    """
-    Load all *_results.csv files from an experiment directory.
-    
-    Note: compas comes from compas_experiment, student_address comes from student_experiment.
-    These are filtered out from rw_experiment to avoid duplicates.
-    """
+    """Load all *_results.csv files from an experiment directory."""
     results = []
     result_files = glob.glob(os.path.join(RESULTS_DIR, experiment_dir, '*_results.csv'))
     
@@ -120,12 +113,6 @@ def load_results(experiment_dir: str) -> pd.DataFrame:
             df = pd.read_csv(file_path)
             # Parse Balance column
             df['Balance'] = df['Balance'].apply(parse_balance_value)
-            
-            # Filter based on experiment directory
-            # compas should only come from compas_experiment
-            # student_address should only come from student_experiment
-            if experiment_dir == 'rw_experiment':
-                df = df[~df['Data'].isin(['compas', 'student_address'])]
             
             if len(df) > 0:
                 results.append(df)

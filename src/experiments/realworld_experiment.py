@@ -32,8 +32,8 @@ from src.evaluation.noise import noise_percent
 
 
 def realworld_experiment():
-    # list of datasets
-    DATANAMES = ["adult4", "diabetes", "communities"]
+    # list of datasets (binary sensitive attributes)
+    DATANAMES = ["adult4", "diabetes", "communities", "student_address", "compas"]
     # list of algorithms to include
     ALGORITHMS = ['FairDen', 'Scalable', 'FairSC_normalized', 'FairSC', 'Fairlet']
     # for each dataset

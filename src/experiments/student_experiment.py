@@ -34,13 +34,15 @@ from src.evaluation.noise import noise_percent
 def student_experiment():
     """
     Run Student Performance experiments:
+    - student: sex only as sensitive attribute (binary)
     - student_address: address only as sensitive attribute (binary: U/R)
+    - student2: address + sex as combined sensitive attributes (multi-attribute)
     
     Results are saved to results/student_experiment/ folder.
     Uses k=2 clusters for all algorithms.
     """
-    # Only run student_address (binary sensitive attribute)
-    DATANAMES = ["student_address"]
+    # Run all 3 student configs
+    DATANAMES = ["student", "student_address", "student2"]
     
     # Algorithms for binary sensitive attributes (includes Scalable and Fairlet)
     ALGORITHMS_BINARY = ['FairDen', 'Scalable', 'FairSC_normalized', 'FairSC', 'Fairlet']

@@ -1,13 +1,26 @@
 {
   "name": "diabetes",
   "file_name": "data/realworld/diabetic_data.csv",
-  "sensitive_attrs": ["gender"],
-  "sensitive_values": ["Female", "Male"],
-  "columns": ["age", "time_in_hospital","num_procedures","num_medications","number_outpatient","number_emergency","number_inpatient"],
+  "sensitive_attrs": [
+    "gender"
+  ],
+  "sensitive_values": [
+    "Female",
+    "Male"
+  ],
+  "columns": [
+    "age",
+    "time_in_hospital",
+    "num_procedures",
+    "num_medications",
+    "number_outpatient",
+    "number_emergency",
+    "number_inpatient"
+  ],
   "categorical_features": [],
   "n_clusters": 2,
   "target": "readmitted",
-  "random_state" : 21,
+  "random_state": 21,
   "n_samples": 5000,
   "DBSCAN_min_pts": 10,
   "DBSCAN_eps": 0.45,

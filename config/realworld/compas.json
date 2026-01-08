@@ -6,7 +6,9 @@
     ],
     "sensitive_values": [
         "African-American",
-        "Caucasian"
+        "Caucasian",
+        "Hispanic",
+        "Other"
     ],
     "columns": [
         "age",
