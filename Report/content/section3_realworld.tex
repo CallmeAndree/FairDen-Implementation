@@ -1,0 +1,146 @@
+\section{Fair Clustering of Real-World Benchmark Data}
+
+\subsection{Kết quả của tác giả}
+
+Hình \ref{fig:rw_author} cho thấy FairDen đạt được giá trị Balance cao nhất hoặc cạnh tranh cho các tập dữ liệu thực tế khi chỉ xét một thuộc tính nhạy cảm. Lưu ý rằng Fairlet và Scalable Fair Clustering không thể áp dụng cho các tập dữ liệu có thuộc tính nhạy cảm không nhị phân.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig/rw_author.png}
+\caption{Kết quả Balance của tác giả trên các tập dữ liệu Real-World}
+\label{fig:rw_author}
+\end{figure}
+
+\subsection{Kết quả thực nghiệm của nhóm}
+
+Nhóm đã tái thực nghiệm trên các tập dữ liệu gốc của tác giả và bổ sung thêm hai tập dữ liệu mới: \textbf{COMPAS} (dự đoán tái phạm) và \textbf{Student Performance} (kết quả học tập sinh viên).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig/balance_comparison.png}
+\caption{Kết quả Balance của nhóm trên các tập dữ liệu Real-World (bao gồm COMPAS và Student)}
+\label{fig:rw_our}
+\end{figure}
+
+\subsection{Bảng kết quả chi tiết}
+
+Bảng \ref{tab:rw_results} thể hiện số lượng cluster $k$, Balance, DCSI và ARI cho các tập dữ liệu real-world benchmark. Dấu ``--'' biểu thị thuật toán không áp dụng được hoặc không có kết quả.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Số lượng cluster $k$, Balance, DCSI, ARI cho các tập dữ liệu real-world benchmark. Tập Diabetes được thực nghiệm với cả $k=2$ (Ground truth) và $k=4$ (DBSCAN clusters). Dấu ``--'' biểu thị không có kết quả.}
+\label{tab:rw_results}
+\begin{tabular}{l|c|l|c|c|c}
+\toprule
+& $k$ & \textbf{Algo.} & \textbf{Bal.} & \textbf{DCSI} & \textbf{ARI} \\
+\midrule
+\multirow{7}{*}{\rotatebox{90}{Adult (gender)}} 
+& 2 & DBSCAN & 0.71 & \textbf{0.97} & 0.00 \\
+& 2 & FairDen & \textbf{0.86} & 0.04 & 0.05 \\
+& 2 & FairSC & 0.40 & 0.00 & 0.23 \\
+& 2 & FairSC (N) & 0.49 & 0.00 & 0.27 \\
+& 2 & Fairlet & 0.85 & 0.00 & 0.00 \\
+& 2 & GroundTruth & 0.66 & 0.00 & 1.00 \\
+& 2 & Scalable & 0.97 & 0.00 & -0.01 \\
+\midrule
+\multirow{5}{*}{\rotatebox{90}{Adult (race)}} 
+& 2 & DBSCAN & 0.50 & \textbf{0.99} & 0.02 \\
+& 2 & FairDen & \textbf{0.83} & 0.09 & 0.05 \\
+& 2 & FairSC & 0.34 & 0.00 & -0.03 \\
+& 2 & FairSC (N) & 0.32 & 0.00 & 0.16 \\
+& 2 & GroundTruth & 0.52 & 0.00 & 1.00 \\
+\midrule
+\multirow{5}{*}{\rotatebox{90}{Bank}} 
+& 2 & DBSCAN & 0.79 & \textbf{0.99} & 0.01 \\
+& 2 & FairDen & \textbf{0.98} & 0.14 & 0.21 \\
+& 2 & FairSC & 0.42 & 0.00 & -0.06 \\
+& 2 & FairSC (N) & 0.88 & 0.00 & -0.04 \\
+& 2 & GroundTruth & 0.86 & 0.00 & 1.00 \\
+\bottomrule
+\end{tabular}
+\hfill
+\begin{tabular}{l|c|l|c|c|c}
+\toprule
+& $k$ & \textbf{Algo.} & \textbf{Bal.} & \textbf{DCSI} & \textbf{ARI} \\
+\midrule
+\multirow{7}{*}{\rotatebox{90}{Communities}} 
+& 2 & DBSCAN & 0.73 & \textbf{0.65} & -0.03 \\
+& 2 & FairDen & 0.92 & 0.15 & 0.09 \\
+& 2 & FairSC & 0.82 & 0.13 & 0.03 \\
+& 2 & FairSC (N) & 0.86 & 0.13 & 0.03 \\
+& 2 & Fairlet & \textbf{0.99} & 0.02 & 0.08 \\
+& 2 & GroundTruth & 0.52 & 0.07 & 1.00 \\
+& 2 & Scalable & 0.75 & 0.09 & -0.03 \\
+\midrule
+\multirow{7}{*}{\rotatebox{90}{Diabetes (k=2)}} 
+& 2 & DBSCAN & -- & -- & -- \\
+& 2 & FairDen & \textbf{0.96} & 0.08 & 0.01 \\
+& 2 & FairSC & 0.88 & 0.00 & -0.01 \\
+& 2 & FairSC (N) & 0.96 & 0.00 & 0.01 \\
+& 2 & Fairlet & 0.97 & 0.00 & 0.00 \\
+& 2 & GroundTruth & 0.96 & 0.00 & 1.00 \\
+& 2 & Scalable & \textbf{0.97} & 0.01 & 0.00 \\
+\midrule
+\multirow{6}{*}{\rotatebox{90}{Diabetes (k=4)}} 
+& 4 & DBSCAN & 0.72 & \textbf{0.88} & -- \\
+& 4 & FairDen & 0.95 & 0.24 & 0.01 \\
+& 4 & FairSC & 0.23 & 0.04 & -0.01 \\
+& 4 & FairSC (N) & 0.61 & 0.19 & 0.00 \\
+& 4 & Fairlet & 0.95 & 0.00 & 0.00 \\
+& 4 & Scalable & \textbf{0.97} & 0.08 & 0.00 \\
+\bottomrule
+\end{tabular}
+\hfill
+\begin{tabular}{l|c|l|c|c|c}
+\toprule
+& $k$ & \textbf{Algo.} & \textbf{Bal.} & \textbf{DCSI} & \textbf{ARI} \\
+\midrule
+\multirow{4}{*}{\rotatebox{90}{COMPAS}} 
+& 2 & DBSCAN & 0.54 & \textbf{0.99} & 0.02 \\
+& 2 & FairDen & \textbf{0.58} & 0.27 & 0.02 \\
+& 2 & FairSC & 0.45 & 0.00 & 0.00 \\
+& 2 & GroundTruth & 0.79 & 0.00 & 1.00 \\
+\midrule
+\multirow{7}{*}{\rotatebox{90}{Student}} 
+& 2 & DBSCAN & 0.58 & \textbf{0.76} & 0.02 \\
+& 2 & FairDen & 0.93 & 0.14 & 0.01 \\
+& 2 & FairSC & 0.48 & 0.00 & 0.01 \\
+& 2 & FairSC (N) & 0.90 & 0.00 & 0.02 \\
+& 2 & Fairlet & \textbf{0.99} & 0.00 & 0.00 \\
+& 2 & GroundTruth & 0.58 & 0.00 & 1.00 \\
+& 2 & Scalable & 0.92 & 0.14 & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Đánh giá kết quả}
+
+\textbf{Nhận xét chính:}
+
+\begin{itemize}
+    \item \textbf{FairDen đạt Balance cao nhất hoặc cạnh tranh} trên hầu hết các tập dữ liệu:
+    \begin{itemize}
+        \item Adult (gender): FairDen đạt 0.86, cao hơn FairSC (0.40) và FairSC(N) (0.49)
+        \item Adult (race): FairDen đạt 0.83, vượt trội so với các phương pháp khác
+        \item Bank: FairDen đạt 0.98, gần như hoàn hảo
+        \item Communities: FairDen đạt 0.92, chỉ sau Fairlet (MCF) với 0.99
+    \end{itemize}
+    
+    \item \textbf{DCSI của FairDen cao nhất} (sau DBSCAN) cho hầu hết các dataset, cho thấy FairDen bảo toàn cấu trúc density-connected tốt hơn các phương pháp khác.
+    
+    \item \textbf{Fairlet và Scalable} chỉ áp dụng được cho thuộc tính nhạy cảm nhị phân. Khi áp dụng được, chúng thường đạt Balance rất cao (0.97-0.99) nhưng DCSI rất thấp (gần 0).
+    
+    \item \textbf{COMPAS là tập dữ liệu khó nhất}: FairDen chỉ đạt Balance 0.58, thấp hơn các tập khác do thuộc tính race có 4 giá trị và sự mất cân bằng lớn giữa các nhóm.
+    
+    \item \textbf{Student Performance}: FairDen đạt Balance 0.93 với DCSI 0.14, cho thấy hiệu quả tốt trên tập dữ liệu giáo dục.
+\end{itemize}
+
+\textbf{So sánh với kết quả của tác giả:}
+
+Kết quả thực nghiệm của nhóm tương đồng với kết quả trong bài báo gốc:
+\begin{itemize}
+    \item FairDen duy trì vị trí dẫn đầu về Balance trên đa số datasets
+    \item Xu hướng DCSI cao cho FairDen so với các phương pháp fair khác được tái hiện
+    \item Các phương pháp Fairlet và Scalable tiếp tục cho Balance cao nhưng DCSI thấp
+\end{itemize}
