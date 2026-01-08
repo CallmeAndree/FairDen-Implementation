@@ -32,9 +32,9 @@ def main():
     # Real-World experiments
     # realworld_experiment()  # INCOMPLETE - adult4 done, diabetes interrupted (Fairlet MCF), communities not started
     # COMPAS experiments
-    # compas_experiment()  # DONE
+    compas_experiment()  # DONE
     # Student Performance experiments
-    student_experiment()
+    # student_experiment()
 
 
 

@@ -152,7 +152,7 @@ def realworld_experiment():
 
 def realworld_experiment_multi():
     # datasets with non-binary sensitive attributes
-    DATANAMES = ["adult", "bank3"]
+    DATANAMES = ["adult", "bank"]
     # algorithms that can handle non-binary
     ALGORITHMS = ['FairDen', 'FairSC_normalized', 'FairSC']
     # for each configuration

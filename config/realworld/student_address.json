@@ -13,11 +13,14 @@
         "studytime",
         "absences",
         "Dalc",
-        "Medu"
+        "Medu",
+        "goout"
     ],
     "categorical_features": [
         "higher",
-        "internet"
+        "internet",
+        "romantic",
+        "Mjob"
     ],
     "n_clusters": 2,
     "target": "G3",

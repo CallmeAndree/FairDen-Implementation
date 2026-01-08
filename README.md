@@ -2,8 +2,31 @@
 
 This repository is the official implementation of [FairDen: Fair Density-Based Clustering](https://iclr.cc/virtual/2025/poster/29171), accepted at ICLR 2025.
 
+---
 
+## 🔄 Fork Information
 
+This repository is a **fork and extension** of the original FairDen implementation by the authors. It has been used, extended, and re-experimented by a student team at **University of Information Technology (UIT), Vietnam National University Ho Chi Minh City**.
+
+### Team Members
+- **Phan Nhựt Anh**
+- **Nguyễn Trung Quân**
+- **Thái Hoàng Phúc**
+
+### Our Contributions
+We have made the following additions and modifications to the original codebase:
+
+| File | Description |
+|------|-------------|
+| `src/experiments/compas_experiment.py` | Experiments on the COMPAS dataset (recidivism prediction) |
+| `src/experiments/student_experiment.py` | Experiments on the Student Performance dataset |
+| `src/experiments/compas_hyperparam_search.py` | Hyperparameter optimization for COMPAS dataset |
+| `src/experiments/student_hyperparam_search.py` | Hyperparameter optimization for Student dataset |
+| `config/realworld/compas.json` | Configuration for COMPAS dataset |
+| `config/realworld/student_address.json` | Configuration for Student dataset with address as sensitive attribute |
+| `scripts/visualize_balance.py` | Visualization script for Balance metric comparison |
+
+---
 
 ## Three moons
 
@@ -62,6 +85,29 @@ run
 ```bash
 python3 main.py
 ```
+
+### COMPAS Experiment (Our Addition)
+
+Run experiments on the COMPAS recidivism dataset:
+```python
+from src.experiments.compas_experiment import compas_experiment
+def main():
+    compas_experiment()
+if __name__ == "__main__":
+    main()
+```
+
+### Student Performance Experiment (Our Addition)
+
+Run experiments on the Student Performance dataset:
+```python
+from src.experiments.student_experiment import student_experiment
+def main():
+    student_experiment()
+if __name__ == "__main__":
+    main()
+```
+
 ## Structure of the repository
 
 ```bash
@@ -79,7 +125,9 @@ python3 main.py
 │   └── realworld                   # realworld datasets 
 │
 ├── results                         # experiment results
-│   └── ...         
+│   ├── rw_experiment               # Real-world experiment results
+│   ├── compas_experiment           # COMPAS experiment results (our addition)
+│   └── student_experiment          # Student experiment results (our addition)
 │              
 ├── src
 │   ├── comparative_methods         # implementations for other methods
@@ -88,6 +136,9 @@ python3 main.py
 │   ├── experiments                 # experiments 
 │   ├── utils                       # DataLoader, DataEncoder
 │   └── FairDen.py                  # our method
+│
+├── scripts                         # utility scripts (our addition)
+│   └── visualize_balance.py        # Balance visualization script
 │ 
 ├── .gitignore                      # ignore files that cannot commit to Git
 ├── LICENSE                         # license file  
@@ -119,6 +170,8 @@ The following datasets are taken from [UC Irvine Machine Learning Repository](ht
 - Communities and Crime
 - Diabetic Dataset
 - UCI Census 
+- COMPAS (ProPublica)
+- Student Performance
 
 Data that we generated with [DENSIRED](https://github.com/PhilJahn/DENSIRED) or our motivational three moons dataset are licensed under [Creative Commons Zero (CC0) license](https://creativecommons.org/public-domain/cc0/).
 

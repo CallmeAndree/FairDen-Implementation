@@ -34,22 +34,19 @@ from src.evaluation.noise import noise_percent
 def student_experiment():
     """
     Run Student Performance experiments:
-    - student: sex only as sensitive attribute
-    - student_address: address only as sensitive attribute
-    - student2: address + sex as combined sensitive attributes
+    - student_address: address only as sensitive attribute (binary: U/R)
+    
+    Results are saved to results/student_experiment/ folder.
+    Uses k=2 clusters for all algorithms.
     """
-    # Experiment configurations
-    DATANAMES = ["student", "student_address", "student2"]
-    # algorithms that can handle non-binary sensitive attributes
-    ALGORITHMS = ['FairDen', 'FairSC_normalized', 'FairSC']
+    # Only run student_address (binary sensitive attribute)
+    DATANAMES = ["student_address"]
+    
+    # Algorithms for binary sensitive attributes (includes Scalable and Fairlet)
+    ALGORITHMS_BINARY = ['FairDen', 'Scalable', 'FairSC_normalized', 'FairSC', 'Fairlet']
     
     # Create results directory if not exists
     Path('results/student_experiment').mkdir(parents=True, exist_ok=True)
-    
-    # Delete old result files to ensure fresh results
-    import os
-    for f in Path('results/student_experiment').glob('*.csv'):
-        os.remove(f)
     
     # for each configuration
     for dataname in tqdm(DATANAMES):
@@ -59,7 +56,6 @@ def student_experiment():
         # construct DataLoader object
         dataloader = DataLoader(dataname, categorical=False)
         dataloader.load()
-        degree_ = dataloader.get_num_clusters()
         degree_db = dataloader.get_n_clusters_db()
         data = dataloader.get_data()
         
@@ -68,9 +64,8 @@ def student_experiment():
         dbscan = DBSCAN(eps=eps, min_samples=min_pts).fit(data)
         ground_truth_db = dbscan.labels_
         
-        # define min pts - using 15 for Student Performance dataset
-        # Original heuristic: 2 * (data.shape[1] + len(sens_attr)) - 1
-        min_pts = 15
+        # define min pts according to heuristic
+        min_pts = 2 * (data.shape[1] + len(dataloader.get_sens_attr())) - 1
         ground_truth = dataloader.get_target_columns()
         
         result_file = Path('results/student_experiment/{}.csv'.format(dataname))
@@ -88,7 +83,6 @@ def student_experiment():
             labels, dataname, dataloader, ground_truth, ground_truth_db, data
         )
         
-        attr1 = dataloader.get_sens_attr()
         # save results
         results.append({
             "Data": dataname, 
@@ -129,14 +123,49 @@ def student_experiment():
         })
         dataframe['GroundTruth_DB'] = labels
         
-        skip = False
-        # for ground truth numbers of clusters and DBSCAN number of clusters
-        for n_cluster in [degree_, degree_db]:
-            # if both are the same the second run will be skipped
-            if skip:
-                continue
-            # for each algorithm
-            for algo in tqdm(ALGORITHMS):
+        # Use k=2 for all algorithms
+        n_cluster = 2
+        
+        # Run all binary algorithms
+        for algo in tqdm(ALGORITHMS_BINARY, desc=f"{dataname} (k={n_cluster})"):
+            if algo == 'Fairlet':
+                try:
+                    algorithm = ClusteringAlgorithm(algo, dataloader, min_pts, dataname)
+                    names, labelss = algorithm.run(n_cluster)
+                    for name, labels in zip(names, labelss):
+                        dataframe[name + str(n_cluster)] = labels
+                        balance, ari, nmi, dcsi, noise, degree, ari_db, nmi_db = evaluate(
+                            labels, dataname, dataloader, ground_truth, ground_truth_db, data
+                        )
+                        results.append({
+                            "Data": dataname, 
+                            "Algorithm": name, 
+                            "N_cluster": degree, 
+                            "DCSI": dcsi,
+                            "Balance": balance, 
+                            "ARI": ari,
+                            "NMI": nmi, 
+                            "Noise": noise, 
+                            "Categorical": "None", 
+                            "ARI_DB": ari_db, 
+                            "NMI_DB": nmi_db
+                        })
+                except Exception as e:
+                    print(f"Fairlet failed for {dataname}: {e}")
+                    results.append({
+                        "Data": dataname, 
+                        "Algorithm": 'Fairlet', 
+                        "N_cluster": '-', 
+                        "DCSI": '-',
+                        "Balance": '-', 
+                        "ARI": '-',
+                        "NMI": '-', 
+                        "Noise": '-', 
+                        "Categorical": "None", 
+                        "ARI_DB": '-', 
+                        "NMI_DB": '-'
+                    })
+            else:
                 algorithm = ClusteringAlgorithm(algo, dataloader, min_pts, dataname)
                 labels = algorithm.run(n_cluster)
                 # if labels couldn't be generated add -2
@@ -161,10 +190,8 @@ def student_experiment():
                     "ARI_DB": ari_db, 
                     "NMI_DB": nmi_db
                 })
-            if degree_ == degree_db:
-                skip = True
         
-        # save dataframe results to csv
+        # save dataframe results to csv (to student_experiment folder)
         dataframe.to_csv('results/student_experiment/{}.csv'.format(dataname))
         df = pd.DataFrame(results)
         df.to_csv('results/student_experiment/{}_results.csv'.format(dataname))
