@@ -29,11 +29,11 @@ EXPERIMENT_DIRS = [
 # Order: DBSCAN, FairDEN, FairSC, FairSC (N), Fairlet (MCF), GroundTruth, Scalable
 ALGORITHM_COLORS = {
     'GroundTruth_DB': '#9E9E9E',       # Gray (DBSCAN)
-    'FairDen': '#FF9800',              # Orange (FairDEN)
-    'FairSC': '#2196F3',               # Blue (FairSC)
-    'FairSC_normalized': '#00BCD4',    # Cyan (FairSC (N))
-    'Fairlet_MCF Fairlet': '#4CAF50',  # Green (Fairlet (MCF))
-    'GroundTruth': '#E91E63',          # Pink (GroundTruth)
+    'FairDen': '#E91E63',              # Pink (FairDEN)
+    'FairSC': '#FFC107',               # Yellow (FairSC)
+    'FairSC_normalized': '#2196F3',    # Blue (FairSC (N))
+    'Fairlet_MCF Fairlet': '#FF9800',  # Orange (Fairlet (MCF))
+    'GroundTruth': '#4CAF50',          # Green (GroundTruth)
     'Scalable': '#9C27B0',             # Purple (Scalable)
 }
 
@@ -159,12 +159,12 @@ def create_balance_chart(df: pd.DataFrame, output_path: str):
     algorithms = [a for a in algorithm_order if a in algorithms]
     
     # Sort datasets
-    dataset_order = ['adult', 'adult4', 'bank', 'communities', 'diabetes', 
+    dataset_order = ['adult4', 'adult', 'bank', 'communities', 'diabetes', 
                      'student_address', 'compas']
     datasets = [d for d in dataset_order if d in datasets]
     
     # Set up the figure
-    fig, ax = plt.subplots(figsize=(16, 5))
+    fig, ax = plt.subplots(figsize=(16, 2.5))
     
     # Calculate bar positions
     n_datasets = len(datasets)
@@ -193,7 +193,7 @@ def create_balance_chart(df: pd.DataFrame, output_path: str):
     # Customize the chart
     ax.set_ylabel('Balance', fontsize=12, fontweight='bold')
     ax.set_ylim(0, 1.05)
-    ax.set_yticks([0.0, 0.25, 0.5, 0.75, 1.0])
+    ax.set_yticks([0.0, 0.5, 1.0])
     
     # Set x-axis labels
     dataset_labels = [DATASET_NAMES.get(d, d) for d in datasets]
