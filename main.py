@@ -20,8 +20,8 @@ from src.experiments.realworld_experiment import realworld_experiment
 from src.experiments.adult_experiment import adult_experiment
 from src.experiments.compas_experiment import compas_experiment
 from src.experiments.student_experiment import student_experiment
-from src.experiments.compas_hyperparam_search import compas_hyperparam_search
-from src.experiments.student_hyperparam_search import student_hyperparam_search
+from src.experiments.compas_hyperparam_search import compas_hyperparameter_search
+from src.experiments.student_hyperparam_search import student_hyperparameter_search
 
 # perform all experiments
 def main():
@@ -29,11 +29,11 @@ def main():
     # adult_experiment() # Multiple sensitive attributes
     # categorical_experiments() # Categorical experiments
     # k_line_multi()  # K-Experiments
-    # realworld_experiment() # Real-World experiments
+    realworld_experiment() # Real-World experiments
     # compas_experiment()  # COMPAS experiments
     # student_experiment() # Student Performance experiments
-    # compas_hyperparam_search()  # Search optimal DBSCAN params for COMPAS
-    # student_hyperparam_search()  # Search optimal DBSCAN params for Student
+    # compas_hyperparameter_search()  # Search optimal DBSCAN params for COMPAS
+    # student_hyperparameter_search()  # Search optimal DBSCAN params for Student
     pass
 
 

@@ -9,9 +9,9 @@ Repository này là bản triển khai chính thức của [FairDen: Fair Densit
 Repository này là **bản fork và mở rộng** từ bản triển khai FairDen gốc của các tác giả. Nó đã được sử dụng, mở rộng và thực nghiệm lại bởi nhóm sinh viên tại **Trường Đại học Khoa học tự nhiên (HCMUS), Đại học Quốc gia TP. Hồ Chí Minh**.
 
 ### Thành viên nhóm
-- **Phan Nhựt Anh**
-- **Nguyễn Trung Quân**
-- **Thái Hoàng Phúc**
+- **Phan Nhựt Anh** - MSSV: 23127023
+- **Nguyễn Hoàng Quân** - MSSV: 23127106
+- **Thái Hoàng Phúc** - MSSV: 23127458
 
 ### Bổ sung của nhóm:
 
@@ -55,7 +55,6 @@ def main():
 #### Kết quả của nhóm:
 ![Real World bar plot](visualization/balance_comparison.png)
 #### Cách chạy thực nghiệm
-Để chạy thực nghiệm, chỉnh sửa hàm main trong file main.py như sau:
 ```python
 from src.experiments.realworld_experiment import realworld_experiment
 def main():
@@ -67,8 +66,7 @@ if __name__ == "__main__":
 ### Thực nghiệm k-line
 ![Line plots](auxiliary/Plots/Lineplot_adult_both.svg)
 ![Legend](auxiliary/Plots/Legend.png)
-
-Chỉnh sửa hàm main như sau:
+#### Cách chạy thực nghiệm
 ```python
 from src.experiments.adult_experiment import adult_experiment
 def main():

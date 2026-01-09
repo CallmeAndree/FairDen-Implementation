@@ -19,7 +19,7 @@ from sklearn.cluster import DBSCAN
 from tqdm import tqdm
 
 from src.utils.DataLoader import DataLoader
-from src.evaluation.dscsi import dcsiscore
+from src.evaluation.dcsi import dcsiscore
 from src.evaluation.balance import balance_score
 from src.evaluation.noise import noise_percent
 
