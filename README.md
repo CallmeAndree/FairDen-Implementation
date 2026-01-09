@@ -64,19 +64,22 @@ if __name__ == "__main__":
 ```
 
 ### Thực nghiệm k-line
+#### Kết quả của tác giả trong bài báo gốc:
 ![Line plots](auxiliary/Plots/Lineplot_adult_both.svg)
 ![Legend](auxiliary/Plots/Legend.png)
+#### Kết quả của nhóm:
+![Line plots](visualization/kline_adult_comparison.png)
+#### Kết quả trên tập dữ liệu COMPAS:
+![Line plots](visualization/kline_compas_comparison.png)
 #### Cách chạy thực nghiệm
 ```python
 from src.experiments.adult_experiment import adult_experiment
+from src.experiments.compas_experiment import compas_experiment
 def main():
-    adult_experiment()
+    adult_experiment() # Thực nghiệm trên tập dữ liệu Adult (của tác giả)
+    compas_experiment() # Thực nghiệm trên tập dữ liệu COMPAS (bổ sung của nhóm)
 if __name__ == "__main__":
     main()
-```
-Chạy lệnh:
-```bash
-python3 main.py
 ```
 
 ### Thực nghiệm Categorical (Biến phân loại)
@@ -90,32 +93,6 @@ if __name__ == "__main__":
     main()
 ```
 
-Chạy lệnh:
-```bash
-python3 main.py
-```
-
-### Thực nghiệm COMPAS 
-
-Chạy thực nghiệm trên tập dữ liệu COMPAS về dự đoán tái phạm:
-```python
-from src.experiments.compas_experiment import compas_experiment
-def main():
-    compas_experiment()
-if __name__ == "__main__":
-    main()
-```
-
-### Thực nghiệm Student Performance 
-
-Chạy thực nghiệm trên tập dữ liệu Student Performance:
-```python
-from src.experiments.student_experiment import student_experiment
-def main():
-    student_experiment()
-if __name__ == "__main__":
-    main()
-```
 ---
 
 ## Cấu trúc thư mục
