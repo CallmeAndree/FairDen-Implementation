@@ -27,11 +27,9 @@ from src.experiments.student_hyperparam_search import student_hyperparameter_sea
 def main():
     # UNCOMMENT TO RUN
     # adult_experiment() # Multiple sensitive attributes
-    # categorical_experiments() # Categorical experiments
+    categorical_experiments() # Categorical experiments
     # k_line_multi()  # K-Experiments
-    realworld_experiment() # Real-World experiments
-    # compas_experiment()  # COMPAS experiments
-    # student_experiment() # Student Performance experiments
+    # realworld_experiment() # Real-World experiments
     # compas_hyperparameter_search()  # Search optimal DBSCAN params for COMPAS
     # student_hyperparameter_search()  # Search optimal DBSCAN params for Student
     pass

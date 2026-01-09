@@ -84,7 +84,6 @@ if __name__ == "__main__":
 
 ### Thực nghiệm Categorical (Biến phân loại)
 
-Chỉnh sửa hàm main như sau:
 ```python
 from src.experiments.categorical_experiments import categorical_experiments
 def main():

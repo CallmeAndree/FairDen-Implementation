@@ -30,10 +30,10 @@ from src.utils.DataLoader import DataLoader
 
 def categorical_experiments():
     # list of datasets
-    DATANAMES = ["bank", "adult2", "adult5"]
+    DATANAMES = ["bank", "adult2", "adult5", "student_address"]
     MIN_PTS = ['d']
     # name mapping
-    NAME_MAP = {"bank": 'Bank (marital)', "adult2": 'Adult (race)', "adult5": 'Adult (gender)'}
+    NAME_MAP = {"bank": 'Bank (marital)', "adult2": 'Adult (race)', "adult5": 'Adult (gender)', "student_address": 'Student (address)'}
     # for each dataset
     for dataname in tqdm(DATANAMES):
         print('Run for {} started.'.format(dataname))
