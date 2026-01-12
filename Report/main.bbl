@@ -1,4 +1,4 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -21,6 +21,16 @@ Paulo Cortez.
 \newblock Student performance.
 \newblock UCI Machine Learning Repository, 2008.
 \newblock URL \url{https://doi.org/10.24432/C5TG7T}.
+
+\bibitem[Kamiran et~al.(2012)Kamiran, Karim, and Zhang]{kamiran2013}
+Faisal Kamiran, Asim Karim, and Xiangliang Zhang.
+\newblock Decision theory for discrimination-aware classification.
+\newblock In \emph{Proceedings of the 12th IEEE International Conference on Data Mining (ICDM)}, pages 924--929. IEEE, 2012.
+
+\bibitem[Kamishima et~al.(2012)Kamishima, Akaho, Asoh, and Sakuma]{kamishima2012}
+Toshihiro Kamishima, Shotaro Akaho, Hideki Asoh, and Jun Sakuma.
+\newblock Fairness-aware classifier with prejudice remover regularizer.
+\newblock In \emph{Machine Learning and Knowledge Discovery in Databases - European Conference, ECML PKDD 2012}, pages 35--50. Springer, 2012.
 
 \bibitem[Kohavi(1996)]{kohavi1996}
 Ron Kohavi.

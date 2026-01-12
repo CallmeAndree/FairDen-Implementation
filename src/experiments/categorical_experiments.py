@@ -114,10 +114,10 @@ def categorical_experiments():
 
 def not_categorical_experiments():
     # datasets
-    DATANAMES = ["bank3", "adult", "adult4"]
+    DATANAMES = ["bank3", "adult", "adult4", "student_address3"]
     MIN_PTS = ['d']
     # mapping for DataFrame
-    NAME_MAP = {"bank3": 'Bank (marital)', "adult": 'Adult (race)', "adult4": 'Adult (gender)'}
+    NAME_MAP = {"bank3": 'Bank (marital)', "adult": 'Adult (race)', "adult4": 'Adult (gender)', "student_address3": 'Student (address)'}
     for dataname in tqdm(DATANAMES):
         name = NAME_MAP[dataname]
         print('Run for {} started.'.format(dataname))

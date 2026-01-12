@@ -1,0 +1,26 @@
+{
+    "name": "cens_gender",
+    "file_name": "data/realworld/uci_census.csv",
+    "sensitive_attrs": [
+        "gender"
+    ],
+    "sensitive_values": [
+        "Male",
+        "Female"
+    ],
+    "columns": [
+        "age",
+        "education_num",
+        "hours_per_week",
+        "capital_gain"
+    ],
+    "categorical_features": [],
+    "n_clusters": 5,
+    "target": "income_bracket",
+    "random_state": 42,
+    "n_samples": 5000,
+    "DBSCAN_min_pts": 7,
+    "DBSCAN_eps": 0.6,
+    "DCSI_min_pts": 5,
+    "n_clusters_db": 5
+}

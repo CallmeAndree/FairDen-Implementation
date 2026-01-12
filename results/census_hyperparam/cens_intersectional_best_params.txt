@@ -1,0 +1,8 @@
+Census (cens_intersectional) - Best Hyperparameters (by DCSI)
+==================================================
+minPts: 10
+epsilon: 0.6
+DCSI: 0.9913
+Balance: 0.4986
+Clusters: 2
+Noise%: 4.82%

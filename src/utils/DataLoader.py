@@ -240,7 +240,7 @@ class DataLoader(object):
                             + self.__data[str(self.__data_config['sensitive_attrs'][1])]
                             + self.__data[str(self.__data_config['sensitive_attrs'][2])]
                     )
-                if 'census' in self.__name:
+                if 'census' in self.__name or 'cens_' in self.__name:
                     self.__data = self.__data[
                         ["sensitive_attr"] + self.__data_config['sensitive_attrs'] + self.__data_config['columns'] +
                         self.__data_config['categorical_features']]
@@ -266,7 +266,7 @@ class DataLoader(object):
                         self.__all_sensitive[column].isin(values)
                     ]
                 self.__data = self.__data[self.__data.index.isin(self.__all_sensitive.index)]
-            # For synthetic data
+            # For synthetic data (cens_ configs need sensitive value encoding, unlike census)
             if "synthetic" not in self.__name and "three_moons" not in self.__name and 'census' not in self.__name:
 
                 for sens_attr in self.__data_config['sensitive_attrs']:
@@ -291,7 +291,7 @@ class DataLoader(object):
                         list(range(0, len(sensitive_values)))
                     )
 
-                if len(self.__data_config['categorical_features']) != 0:
+                if len(self.__data_config['categorical_features']) != 0 and 'cens_' not in self.__name:
                     self.__data_to_encode = self.__data[self.__data_config['categorical_features']]
                     if len(self.__data_config['sensitive_attrs']) == 1:
                         self.__data = self.__data[
@@ -311,7 +311,7 @@ class DataLoader(object):
                         sensitive_values,
                         list(range(0, len(sensitive_values))),
                     )
-            if 'census' not in self.__name:
+            if 'census' not in self.__name and 'cens_' not in self.__name:
                 target_values = self.__data[self.__data_config['target']].unique()
                 # Replace target values with numerical values
                 # self.__data[self.__target_name].replace(
@@ -353,7 +353,7 @@ class DataLoader(object):
                         list(range(0, len(self.__data[column].unique()))),
                         inplace=True,
                     )
-            if 'census' not in self.__name:
+            if 'census' not in self.__name and 'cens_' not in self.__name:
                 self.__target_column = self.__data[self.__data_config['target']]
                 # make target column consist of numeric values only
                 self.__target_column = self.__target_column.replace(
@@ -428,7 +428,8 @@ class DataLoader(object):
             self.__data = self.__data.sample(n=self.__data_config['n_samples'], random_state=RANDOM_STATE).reset_index(
                 drop=True)
 
-        elif 'adult' in self.__name:
+
+        elif 'adult' in self.__name or 'cens_' in self.__name:
             self.__data = pd.read_csv(self.__data_config['file_name'])
             self.__data = self.__data.drop_duplicates(
                 subset=self.__data_config['sensitive_attrs'] + self.__data_config['columns'], ignore_index=True

@@ -22,16 +22,20 @@ from src.experiments.compas_experiment import compas_experiment
 from src.experiments.student_experiment import student_experiment
 from src.experiments.compas_hyperparam_search import compas_hyperparameter_search
 from src.experiments.student_hyperparam_search import student_hyperparameter_search
+from src.experiments.census_hyperparam_search import main as census_hyperparam_search
+from src.experiments.census_experiment import census_experiment
 
 # perform all experiments
 def main():
     # UNCOMMENT TO RUN
     # adult_experiment() # Multiple sensitive attributes
-    categorical_experiments() # Categorical experiments
+    # categorical_experiments() # Categorical experiments
     # k_line_multi()  # K-Experiments
     # realworld_experiment() # Real-World experiments
     # compas_hyperparameter_search()  # Search optimal DBSCAN params for COMPAS
     # student_hyperparameter_search()  # Search optimal DBSCAN params for Student
+    # census_hyperparam_search()  # Search optimal DBSCAN params for Census configs
+    census_experiment()  # Run FairDen on Census configs with balance for all 3 attrs
     pass
 
 

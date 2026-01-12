@@ -14,7 +14,9 @@
 \usepackage[authoryear]{natbib}
 
 \usepackage{multirow}
-
+\usepackage{xcolor}  % Required for color support
+\usepackage{soul}
+\sethlcolor{yellow}
 % ===== PAGE SETUP =====
 \geometry{a4paper, margin=2.5cm}
 
@@ -28,8 +30,10 @@
 
 % Section 3: Fair Clustering of Real-World Benchmark Data
 \input{content/section3_realworld}
+\input{content/section4_categorical.tex}
 
 % ===== REFERENCES =====
+\newpage
 \bibliographystyle{plainnat}
 \bibliography{ref}
 

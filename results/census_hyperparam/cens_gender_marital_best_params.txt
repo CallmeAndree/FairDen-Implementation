@@ -1,0 +1,8 @@
+Census (cens_gender_marital) - Best Hyperparameters (by DCSI)
+==================================================
+minPts: 10
+epsilon: 0.7
+DCSI: 0.9934
+Balance: 0.4987
+Clusters: 2
+Noise%: 2.88%

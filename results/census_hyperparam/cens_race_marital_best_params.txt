@@ -1,0 +1,8 @@
+Census (cens_race_marital) - Best Hyperparameters (by DCSI)
+==================================================
+minPts: 5
+epsilon: 0.6
+DCSI: 0.9905
+Balance: 0.4974
+Clusters: 2
+Noise%: 2.98%

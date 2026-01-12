@@ -1,0 +1,8 @@
+Census (cens_race) - Best Hyperparameters (by DCSI)
+==================================================
+minPts: 10
+epsilon: 0.5
+DCSI: 0.9815
+Balance: 0.4974
+Clusters: 2
+Noise%: 6.42%
