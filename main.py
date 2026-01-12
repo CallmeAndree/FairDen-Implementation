@@ -45,7 +45,7 @@ def main():
     # census_hyperparam_search() 
     '''Fair clustering of multiple sensitive attributes'''
     # adult_experiment()
-    # census_experiment() 
+    census_experiment() 
     pass
 
 

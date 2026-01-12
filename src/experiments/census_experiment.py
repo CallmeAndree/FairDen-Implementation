@@ -1,6 +1,6 @@
-# Census Experiment - FairDen only
+# Census Multi-Attribute Experiment
+# Similar structure to adult_experiment.py
 # Runs FairDen on all cens_xxx configs and calculates balance for gender, race, marital_status
-# regardless of what's specified in the config
 
 import sys
 from pathlib import Path
@@ -14,163 +14,210 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
+from sklearn.cluster import DBSCAN
+from sklearn.metrics.cluster import normalized_mutual_info_score
+from sklearn.metrics import adjusted_rand_score
+
 from src.utils.DataLoader import DataLoader
 from src.FairDen import FairDen
-from src.evaluation.balance import balance_score
+from src.evaluation.balance import balance_score, balance_mixed
 from src.evaluation.dcsi import dcsiscore
 from src.evaluation.noise import noise_percent
-from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score
 
 
 def census_experiment():
     """
     Run FairDen on all cens_xxx configurations.
     Calculate balance for all 3 sensitive attributes: gender, race, marital_status.
+    Similar to adult_experiment() structure.
     """
     
-    # Output directory
-    output_dir = Path('results/cens_experiment')
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Configs to process - all 7 Census configs
+    # Configs to process - all 7 Census configs with their settings
     configs = [
-        ('cens_gender', 'gender'),
-        ('cens_race', 'race'),
-        ('cens_marital', 'marital_status'),
-        ('cens_gender_race', 'gender + race'),
-        ('cens_gender_marital', 'gender + marital_status'),
-        ('cens_race_marital', 'race + marital_status'),
-        ('cens_intersectional', 'all 3 attrs'),
+        ('cens_gender', 'G'),
+        ('cens_race', 'R'),
+        ('cens_marital', 'M'),
+        ('cens_gender_race', 'G&R'),
+        ('cens_gender_marital', 'G&M'),
+        ('cens_race_marital', 'M&R'),
+        ('cens_intersectional', 'G&M&R'),
     ]
     
-    # All sensitive attributes we want to calculate balance for
-    ALL_SENS_ATTRS = ['gender', 'race', 'marital_status']
+    MIN_PTS = [15]
+    attr1, attr2, attr3 = ['gender', 'race', 'marital_status']
     
-    results = []
+    # Output directory
+    output_dir = Path('results/multi_attr')
+    output_dir.mkdir(parents=True, exist_ok=True)
     
-    for dataname, config_sens in tqdm(configs, desc="Census Experiment"):
+    for dataname, setting in tqdm(configs, desc="Census Multi-Attr Experiment"):
         print(f"\n{'='*60}")
-        print(f"Processing: {dataname} (config sensitive: {config_sens})")
+        print(f"Processing: {dataname} (Setting: {setting})")
         print(f"{'='*60}")
         
-        # Load config
-        with open(f'config/realworld/{dataname}.json', 'r') as f:
-            config = json.load(f)
+        experimental = []
         
-        # Load data using DataLoader
+        # Load data
         dataloader = DataLoader(dataname, categorical=False)
         dataloader.load()
-        data = dataloader.get_data()
         
-        # Get ground truth
         ground_truth = dataloader.get_target_columns()
-        
-        # Get DBSCAN params
+        degree = dataloader.get_num_clusters()
+        data_sensitive = dataloader.get_data()
+        data_sensitive = np.array(data_sensitive)
         min_pts, eps = dataloader.get_dbscan_config()
-        dcsi_min_pts = dataloader.get_dcsi_min_pts()
-        n_clusters = dataloader.get_num_clusters()
         
-        # Get all sensitive columns from DataLoader
-        # DataLoader stores all 3 sensitive columns in __all_sensitive for adult/cens datasets
-        all_sensitive_df = dataloader.get_all_sensitive()
+        # Calculate DBSCAN clustering for density-based ground-truth
+        dbscan = DBSCAN(eps=eps, min_samples=min_pts).fit(data_sensitive)
+        ground_truth_db = dbscan.labels_
         
-        print(f"Data shape: {data.shape}")
-        print(f"minPts: {min_pts}, eps: {eps}")
-        print(f"n_clusters from config: {n_clusters}")
+        # Transform to numpy array - handle case when ground_truth is None or scalar
+        if ground_truth is None or (hasattr(ground_truth, '__len__') == False):
+            # Use DBSCAN labels as ground truth if no target available
+            labels = ground_truth_db.copy()
+            ground_truth = ground_truth_db.copy()
+        else:
+            labels = np.array(ground_truth)
+            ground_truth = np.array(ground_truth)
+        
+        lab, count = np.unique(labels, return_counts=True)
+        
+        # Evaluate Ground Truth clustering
+        balance, ari, nmi, dcsi, noise, ari_db, nmi_db, balance_per_cluster, balance_per_group_per_cluster = evaluate(
+            labels, dataname, dataloader, ground_truth,
+            ground_truth_db, data_sensitive)
+        
+        # Evaluate mixed balances
+        balance_mix, balance_per_cluster_mix, balance_per_group_per_cluster_mix = evaluate_balance_mixed(
+            labels, dataname, dataloader)
+        
+        # Save results for ground truth clustering
+        experimental.append({
+            "Setting": setting, "Degree": degree, "Algorithm": 'GroundTruth', "min_pts": min_pts,
+            f"Balance_{attr1}": balance.get(attr1, -1),
+            f"Balance_{attr2}": balance.get(attr2, -1),
+            f"Balance_{attr3}": balance.get(attr3, -1),
+            "Balance_Mixed": balance_mix,
+            'Cluster_0': count[0] if len(count) > 0 else 0,
+            "Cluster_1": count[1] if len(count) > 1 else 0,
+        })
+        
+        # Evaluate DBSCAN clustering
+        labels = ground_truth_db
+        lab, count = np.unique(labels, return_counts=True)
+        
+        balance, ari, nmi, dcsi, noise, ari_db, nmi_db, balance_per_cluster, balance_per_group_per_cluster = evaluate(
+            ground_truth_db, dataname, dataloader, ground_truth,
+            ground_truth_db, data_sensitive)
+        
+        balance_mix, balance_per_cluster_mix, balance_per_group_per_cluster_mix = evaluate_balance_mixed(
+            labels, dataname, dataloader)
+        
+        # Save results for DBSCAN clustering
+        experimental.append({
+            "Setting": setting, "Degree": degree, "Algorithm": 'DBSCAN', "min_pts": min_pts,
+            f"Balance_{attr1}": balance.get(attr1, -1),
+            f"Balance_{attr2}": balance.get(attr2, -1),
+            f"Balance_{attr3}": balance.get(attr3, -1),
+            "Balance_Mixed": balance_mix,
+            'Cluster_0': count[0] if len(count) > 0 else 0,
+            "Cluster_1": count[1] if len(count) > 1 else 0,
+        })
         
         # Run FairDen
-        try:
-            # Calculate heuristic min_pts for FairDen
-            sens_count = len(config['sensitive_attrs']) if isinstance(config['sensitive_attrs'], list) else 1
-            fairden_min_pts = max(2 * (data.shape[1] + sens_count) - 1, 20)
-            
-            print(f"Running FairDen with minPts={fairden_min_pts}")
-            
-            # Run FairDen - pass dataloader object, not raw data
-            fairden = FairDen(
-                dataloader,
-                min_pts=fairden_min_pts,
-            )
-            
-            labels = fairden.run(k=n_clusters)
-            
-            if labels is None:
-                print(f"FairDen returned None for {dataname}")
-                continue
-            
-            # Evaluate clustering quality
-            n_clusters_found = len(set(labels)) - (1 if -1 in labels else 0)
-            noise = noise_percent(labels)
-            dcsi = dcsiscore(data, labels, min_pts=dcsi_min_pts)
-            
-            # ARI and NMI
-            if ground_truth is not None:
-                ari = adjusted_rand_score(ground_truth, labels)
-                nmi = normalized_mutual_info_score(ground_truth, labels)
-            else:
-                ari, nmi = -1, -1
-            
-            print(f"Clusters found: {n_clusters_found}, Noise: {noise:.2%}, DCSI: {dcsi:.4f}")
-            
-            # Calculate balance for ALL three sensitive attributes
-            balance_results = {}
-            
-            # The labels array length should match data length
-            # Need to align all_sensitive_df with the actual data used
-            n_labels = len(labels)
-            
-            for sens_attr in ALL_SENS_ATTRS:
-                try:
-                    # Get sensitive column from all_sensitive_df
-                    # Reset index and take first n_labels rows to match labels length
-                    sens_col = all_sensitive_df[sens_attr].reset_index(drop=True).iloc[:n_labels].values
-                    
-                    # Create DataFrame for balance calculation
-                    sens_df = pd.DataFrame({sens_attr: sens_col})
-                    
-                    # Calculate balance
-                    balance = balance_score(
-                        dataname, [sens_attr], np.array(labels),
-                        sens_df, per_cluster=True
-                    )
-                    
-                    balance_results[sens_attr] = balance[0] if isinstance(balance, tuple) else balance
-                    print(f"  Balance ({sens_attr}): {balance_results[sens_attr]:.4f}")
-                except Exception as e:
-                    print(f"  Error calculating balance for {sens_attr}: {e}")
-                    balance_results[sens_attr] = -1
-            
-            # Save result
-            results.append({
-                'Config': dataname,
-                'Config_Sensitive': config_sens,
-                'N_Clusters': n_clusters_found,
-                'Noise': noise,
-                'DCSI': dcsi,
-                'ARI': ari,
-                'NMI': nmi,
-                'Balance_Gender': balance_results.get('gender', -1),
-                'Balance_Race': balance_results.get('race', -1),
-                'Balance_Marital': balance_results.get('marital_status', -1),
-            })
-            
-        except Exception as e:
-            print(f"Error running FairDen on {dataname}: {e}")
-            import traceback
-            traceback.print_exc()
-            continue
-    
-    # Save results
-    df_results = pd.DataFrame(results)
-    df_results.to_csv(output_dir / 'census_fairden_results.csv', index=False)
+        for degree in [degree]:
+            for min_pts in tqdm(MIN_PTS, desc=f"MinPts for {dataname}"):
+                print(f'Checking minpts {min_pts}.')
+                
+                # Create FairDen object
+                algorithm = FairDen(dataloader, min_pts=min_pts, alpha='0')
+                labels = algorithm.run(degree)
+                
+                if labels is None:
+                    print(f"FairDen returned None for {dataname}")
+                    continue
+                
+                labels = np.array(labels)
+                
+                # Evaluate clusterings
+                balance, ari, nmi, dcsi, noise, ari_db, nmi_db, balance_per_cluster, balance_per_group_per_cluster = evaluate(
+                    labels, dataname, dataloader, ground_truth,
+                    ground_truth_db, data_sensitive)
+                
+                # Evaluate clusterings regarding mixed sensitive attribute
+                balance_mix, balance_per_cluster_mix, balance_per_group_per_cluster_mix = evaluate_balance_mixed(
+                    labels, dataname, dataloader)
+                
+                lab, count = np.unique(labels, return_counts=True)
+                
+                algo_name = 'FairDen_v1' if -1 in labels else 'FairDen'
+                
+                result_dict = {
+                    "Setting": setting, "Degree": degree, "Algorithm": algo_name, "min_pts": min_pts,
+                    f"Balance_{attr1}": balance.get(attr1, -1),
+                    f"Balance_{attr2}": balance.get(attr2, -1),
+                    f"Balance_{attr3}": balance.get(attr3, -1),
+                    "Balance_Mixed": balance_mix,
+                    'Cluster_0': count[0] if len(count) > 0 else 0,
+                    "Cluster_1": count[1] if len(count) > 1 else 0,
+                }
+                
+                if len(count) > 2:
+                    result_dict["Cluster_2"] = count[2]
+                
+                experimental.append(result_dict)
+        
+        # Save results
+        df = pd.DataFrame(experimental)
+        df.to_csv(output_dir / f"experimental_{dataname}.csv", index=False)
+        print(f"Saved results to: {output_dir}/experimental_{dataname}.csv")
     
     print("\n" + "="*80)
-    print("CENSUS EXPERIMENT RESULTS - FairDen")
+    print("CENSUS MULTI-ATTR EXPERIMENT COMPLETED")
     print("="*80)
-    print(df_results.to_string(index=False))
-    print(f"\nResults saved to: {output_dir}/census_fairden_results.csv")
+
+
+def evaluate(labels, dataname, dataloader, ground_truth, ground_truth_db, data):
+    """
+    Evaluate given clusterings.
+    """
+    min_pts = 5
+    sensitive = dataloader.get_all_sensitive()
     
-    return df_results
+    # Align sensitive with labels length
+    n_labels = len(labels)
+    sensitive = sensitive.reset_index(drop=True).iloc[:n_labels]
+    
+    balance, balance_per_cluster, balance_per_group_per_cluster = balance_score(
+        dataname, list(sensitive.columns), labels, sensitive, per_cluster=True)
+    
+    ari = adjusted_rand_score(labels, ground_truth[:n_labels])
+    nmi = normalized_mutual_info_score(labels, ground_truth[:n_labels])
+    ari_db = adjusted_rand_score(labels, ground_truth_db[:n_labels])
+    nmi_db = normalized_mutual_info_score(labels, ground_truth_db[:n_labels])
+    dcsi = dcsiscore(data[:n_labels], labels, min_pts=min_pts)
+    noise = noise_percent(labels)
+    
+    return balance, ari, nmi, dcsi, noise, ari_db, nmi_db, balance_per_cluster, balance_per_group_per_cluster
+
+
+def evaluate_balance_mixed(labels, dataname, dataloader):
+    """
+    Evaluate given clusterings regarding combined sensitive attributes.
+    """
+    try:
+        sensitive = dataloader.get_sens_combi_mixed()
+        
+        # Align with labels length
+        n_labels = len(labels)
+        sensitive = sensitive.reset_index(drop=True).iloc[:n_labels]
+        
+        balance_mix, balance_per_cluster, balance_per_group_per_cluster = balance_mixed(
+            dataname, ['combi'], labels, sensitive, per_cluster=True)
+        return balance_mix, balance_per_cluster, balance_per_group_per_cluster
+    except Exception as e:
+        print(f"Error in evaluate_balance_mixed: {e}")
+        return -1, {}, {}
 
 
 if __name__ == "__main__":
