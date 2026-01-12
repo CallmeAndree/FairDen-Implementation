@@ -28,14 +28,24 @@ from src.experiments.census_experiment import census_experiment
 # perform all experiments
 def main():
     # UNCOMMENT TO RUN
-    # adult_experiment() # Multiple sensitive attributes
-    # categorical_experiments() # Categorical experiments
-    # k_line_multi()  # K-Experiments
-    # realworld_experiment() # Real-World experiments
-    # compas_hyperparameter_search()  # Search optimal DBSCAN params for COMPAS
-    # student_hyperparameter_search()  # Search optimal DBSCAN params for Student
-    # census_hyperparam_search()  # Search optimal DBSCAN params for Census configs
-    census_experiment()  # Run FairDen on Census configs with balance for all 3 attrs
+    '''Fair clustering of Real-World data'''
+    # realworld_experiment() 
+    '''Categorical experiments'''
+    # categorical_experiments() 
+    '''K-Experiments'''
+    # k_line_multi() 
+    # compas_experiment()
+    '''Real-World experiments'''
+    # realworld_experiment() 
+    '''Search optimal DBSCAN params for COMPAS'''
+    # compas_hyperparameter_search() 
+    '''Search optimal DBSCAN params for Student'''
+    # student_hyperparameter_search() 
+    '''Search optimal DBSCAN params for Census configs'''
+    # census_hyperparam_search() 
+    '''Fair clustering of multiple sensitive attributes'''
+    # adult_experiment()
+    # census_experiment() 
     pass
 
 

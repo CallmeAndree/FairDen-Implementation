@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ```
 
 ## Các thực nghiệm
-### Tìm kiếm siêu tham số
+### I. Tìm kiếm siêu tham số
 
 Tối ưu hóa tham số DBSCAN cho các tập dữ liệu COMPAS và Student Performance được nhóm thêm vào dựa trên Methodology của tác giả.
 
@@ -48,6 +48,9 @@ from src.experiments.student_hyperparam_search import student_hyperparam_search
 def main():
     compas_hyperparam_search()   # Cho tập COMPAS
     student_hyperparam_search()  # Cho tập Student
+    census_hyperparam_search()   # Cho tập Census
+if __name__ == "__main__":
+    main()
 ```
 
 ### Thực nghiệm Real World
@@ -65,7 +68,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### Thực nghiệm k-line
+### II. Thực nghiệm k-line
 #### Kết quả của tác giả trong bài báo gốc:
 ![Line plots](auxiliary/Plots/Lineplot_adult_both.svg)
 ![Legend](auxiliary/Plots/Legend.png)
@@ -84,12 +87,22 @@ if __name__ == "__main__":
     main()
 ```
 
-### Thực nghiệm Categorical (Biến phân loại)
+### III. Thực nghiệm Categorical attributes:
 
 ```python
 from src.experiments.categorical_experiments import categorical_experiments
 def main():
     categorical_experiments()
+if __name__ == "__main__":
+    main()
+```
+### IV. Thực nghiệm Multiple sensitive attribute:
+```python
+from src.experiments.adult_experiment import adult_experiment
+from src.experiments.census_experiment import census_experiment
+def main():
+    adult_experiment()
+    census_experiment()
 if __name__ == "__main__":
     main()
 ```
