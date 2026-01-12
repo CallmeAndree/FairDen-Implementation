@@ -15,12 +15,14 @@ Repository này là **bản fork và mở rộng** từ bản triển khai FairD
 
 ### Bổ sung của nhóm:
 
-| File | Mô tả |
-|------|-------|
-| `src/experiments/compas_experiment.py` | Thực nghiệm trên tập dữ liệu COMPAS (dự đoán tái phạm) |
-| `src/experiments/student_experiment.py` | Thực nghiệm trên tập dữ liệu Student Performance |
-| `src/experiments/compas_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập COMPAS |
-| `src/experiments/student_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập Student |
+| File | Mô tả | Thực nghiệm | 
+|------|-------|-----------|
+| `src/experiments/compas_experiment.py` | Thực nghiệm trên tập dữ liệu COMPAS | Gôm cụm công bằng trên dữ liệu thực tế
+| `src/experiments/student_experiment.py` | Thực nghiệm trên tập dữ liệu Student Performance | Gôm cụm công bằng trên dữ liệu thực tế, Gôm cụm với dữ liệu nhiều biến phân loại
+| `src/experiments/compas_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập COMPAS | Tìm kiếm tham số tối ưu cho thuật toán FairDEN
+| `src/experiments/student_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập Student | Tìm kiếm tham số tối ưu cho thuật toán FairDEN
+| `src/experiments/census_experiment.py` | Thực nghiệm trên tập dữ liệu Census | Gôm cụm công bằng trên dữ liệu nhiều biến nhạy cảm
+| `src/experiments/census_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập Census | Tìm kiếm tham số tối ưu cho thuật toán FairDEN
 ---
 
 ## Three moons (Ba trăng khuyết)
@@ -96,47 +98,85 @@ if __name__ == "__main__":
 
 ## Cấu trúc thư mục
 
+> **Lưu ý:** Các file/thư mục không được mô tả chức năng là các file gốc hoặc test của tác giả, nhóm không sử dụng đến.
+
 ```bash
 .
-├── auxiliary                       # File phụ trợ: biểu đồ, thực nghiệm bổ sung, tối ưu tham số
-│   ├── AuxExperiments              # Thực nghiệm runtime và three moons
-│   ├── Parameters                  # Kết quả tối ưu tham số
-│   └── Plots                       # Biểu đồ
+├── auxiliary                       # File phụ trợ của tác giả
+│   ├── AuxExperiments              
+│   ├── Parameters             
+│   └── Plots                       # Biểu đồ gốc của tác giả
 │
 ├── config  
-│   ├── realworld                   # File cấu hình cho tập dữ liệu thực tế
-│   └── three_moons                 # File cấu hình cho tập three moons
+│   ├── realworld/                  # File cấu hình cho tập dữ liệu thực tế
+│   │   ├── adult.json              # Adult (race)
+│   │   ├── adult4.json             # Adult (gender)
+│   │   ├── bank.json               # Bank (marital) với categorical
+│   │   ├── bank3.json              # Bank (marital) không categorical
+│   │   ├── compas.json             # COMPAS (race) - bổ sung của nhóm
+│   │   ├── student.json            # Student (sex) - bổ sung của nhóm
+│   │   ├── student_address.json    # Student (address) - bổ sung của nhóm
+│   │   ├── cens_*.json             # Census configs (7 files) - bổ sung của nhóm
+│   │   └── ...                     
+│   └── three_moons/                
 │
-├── data  
-│   └── realworld                   # Các tập dữ liệu thực tế
+├── data/realworld/                 # Các tập dữ liệu thực tế
+│   ├── bank-full.csv               # Bank Marketing Dataset
+│   ├── communities.data            # Communities and Crime Dataset
+│   ├── diabetic_data.csv           # Diabetes Readmission Dataset
+│   ├── compas-scores-two-years.csv # COMPAS Recidivism Dataset
+│   ├── student_performance.csv     # Student Performance Dataset
+│   └── uci_census.csv              # UCI Census Income Dataset
 │
-├── results                         # Kết quả thực nghiệm
-│   ├── rw_experiment               # Kết quả Real-world
-│   ├── compas_experiment           # Kết quả COMPAS (bổ sung của chúng tôi)
-│   └── student_experiment          # Kết quả Student (bổ sung của chúng tôi)
-│              
-├── src
-│   ├── comparative_methods         # Triển khai các phương pháp so sánh
-│   ├── dc_dist                     # Khoảng cách dc_distance
-│   ├── evaluation                  # Đánh giá: balance, dcsi, tỷ lệ noise
-│   ├── experiments                 # Các thực nghiệm
-│   ├── utils                       # DataLoader, DataEncoder
+├── results/                        # Kết quả thực nghiệm
+│   ├── rw_experiment/              # Thực nghiệm Real-World (gom cụm công bằng)
+│   ├── k_line_experiment/          # Thực nghiệm K-line (thay đổi số cụm k)
+│   ├── categorical_exp/            # Thực nghiệm Categorical (FairDen vs FairDen-)
+│   ├── cens_experiment/            # Thực nghiệm Census (nhiều biến nhạy cảm)
+│   │   └── census_fairden_results.csv
+│   ├── compas_hyperparam/          # Tối ưu tham số cho COMPAS
+│   ├── student_hyperparam/         # Tối ưu tham số cho Student
+│   ├── census_hyperparam/          # Tối ưu tham số cho Census (7 configs)
+│   └── ...                         
+│
+├── src/
+│   ├── comparative_methods/        # Triển khai các phương pháp so sánh
+│   ├── dc_dist/                    # Khoảng cách dc_distance
+│   ├── evaluation/                 # Đánh giá: balance, dcsi, tỷ lệ noise
+│   ├── experiments/                # Các thực nghiệm
+│   │   ├── realworld_experiment.py # Thực nghiệm Real-World
+│   │   ├── categorical_experiments.py # Thực nghiệm Categorical
+│   │   ├── compas_experiment.py    # Thực nghiệm COMPAS (bổ sung)
+│   │   ├── census_experiment.py    # Thực nghiệm Census (bổ sung)
+│   │   ├── *_hyperparam_search.py  # Tối ưu siêu tham số (bổ sung)
+│   │   └── ...
+│   ├── utils/                      # DataLoader, DataEncoder
 │   └── FairDen.py                  # Phương pháp FairDen
 │
-├── scripts                         # Script tiện ích (bổ sung của chúng tôi)
-│   └── visualize_balance.py        # Script trực quan hóa Balance
+├── scripts/                        # Script tiện ích (bổ sung của nhóm)
+│   ├── visualize_balance.py        # Trực quan hóa Balance
+│   ├── visualize_kline.py          # Trực quan hóa K-line
+│   └── visualize_census.py         # Trực quan hóa Census
 │
-├── visualization                   # Thư mục lưu biểu đồ (bổ sung của chúng tôi)
+├── visualization/                  # Thư mục lưu biểu đồ (bổ sung của nhóm)
+│   ├── balance_comparison.png      # So sánh Balance Real-World
+│   ├── kline_adult_comparison.png  # K-line cho Adult
+│   ├── kline_compas_comparison.png # K-line cho COMPAS
+│   └── ...
 │ 
-├── .gitignore                      # File ignore cho Git
-├── LICENSE                         # File giấy phép  
+├── Report/                         # Báo cáo LaTeX (bổ sung của nhóm)
+│   ├── content/                    # Nội dung các section
+│   └── main.tex                    # File LaTeX chính
+│
+├── .gitignore                      
+├── LICENSE                         
 ├── main.py                         # File chính để gọi các thực nghiệm  
-├── README.md                       # Mô tả dự án   
-└── requirements.txt                # Các thư viện phụ thuộc  
+├── README.md                         
+└── requirements.txt                
 ```
 
 ## Trích dẫn
-Nếu bạn sử dụng phương pháp hoặc mã nguồn từ repository này, vui lòng trích dẫn bài báo của chúng tôi:
+Nếu bạn sử dụng phương pháp hoặc mã nguồn từ repository này, vui lòng trích dẫn bài báo của tác giả:
 
 Lena Krieger*, Anna Beer*, Pernille Matthews, Anneka Myrup Thiesson, Ira Assent, (2025, April). FairDen: Fair Density-based Clustering. Accepted for publication at the *Thirteenth International Conference on Learning Representations (ICLR)*.
 
@@ -151,21 +191,34 @@ Lena Krieger*, Anna Beer*, Pernille Matthews, Anneka Myrup Thiesson, Ira Assent,
 }
 ```
 
+### Trích dẫn Dataset
+
+**UCI Census Income Dataset:**
+```bibtex
+@misc{kohavi1996,
+  author       = {Ron Kohavi},
+  title        = {Scaling Up the Accuracy of Naive-Bayes Classifiers: A Decision-Tree Hybrid},
+  booktitle    = {Proceedings of KDD-96},
+  year         = {1996},
+  publisher    = {AAAI Press}
+}
+```
+
 ## Giấy phép
 
 ### Mã nguồn
-Công trình này được cấp phép theo [Apache 2.0 License](LICENSE). Giấy phép này áp dụng cho tất cả các file mã nguồn do chúng tôi triển khai.
+Công trình này được cấp phép theo [Apache 2.0 License](LICENSE). Giấy phép này áp dụng cho tất cả các file mã nguồn do tác giả triển khai.
 
 ### Dữ liệu
 Các tập dữ liệu sau được lấy từ [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/) và được cấp phép theo [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/legalcode):
-- Tập Bank
+- Tập Bank Marketing
 - Tập Communities and Crime
-- Tập Diabetic
-- Tập UCI Census
+- Tập Diabetes Readmission
+- Tập UCI Census Income
 - Tập COMPAS (ProPublica)
 - Tập Student Performance
 
-Dữ liệu do chúng tôi tạo bằng [DENSIRED](https://github.com/PhilJahn/DENSIRED) hoặc tập three moons được cấp phép theo [Creative Commons Zero (CC0)](https://creativecommons.org/public-domain/cc0/).
+Dữ liệu do tác giả tạo bằng [DENSIRED](https://github.com/PhilJahn/DENSIRED) hoặc tập three moons được cấp phép theo [Creative Commons Zero (CC0)](https://creativecommons.org/public-domain/cc0/).
 
 
 
