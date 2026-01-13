@@ -104,7 +104,7 @@ def create_author_visualization():
     
     # Create figure
     fig = plt.figure(figsize=(14, 4))
-    fig.patch.set_facecolor('#f5f5f5')
+    fig.patch.set_facecolor('white')
     
     # Panel 1
     ax1 = fig.add_axes([0.05, 0.15, 0.22, 0.7])
@@ -119,11 +119,9 @@ def create_author_visualization():
     ax3 = fig.add_axes([0.68, 0.32, 0.22, 0.28])
     create_heatmap_panel(ax3, author_triple, ['G&M&R'], ['G', 'M', 'R'])
     
-    plt.suptitle("Author's Results (Figure 3 - Adult Dataset)", fontsize=13, y=0.98)
-    
     output_dir = Path('visualization')
     output_dir.mkdir(exist_ok=True)
-    plt.savefig(output_dir / 'multi_attr_author.png', dpi=150, bbox_inches='tight', facecolor='#f5f5f5')
+    plt.savefig(output_dir / 'multi_attr_author.png', dpi=150, bbox_inches='tight', facecolor='white')
     print(f"Saved: {output_dir}/multi_attr_author.png")
     plt.close()
 
@@ -164,7 +162,7 @@ def create_our_visualization(results, title, output_name):
         ]
     
     fig = plt.figure(figsize=(14, 4))
-    fig.patch.set_facecolor('#f5f5f5')
+    fig.patch.set_facecolor('white')
     
     ax1 = fig.add_axes([0.05, 0.15, 0.22, 0.7])
     create_heatmap_panel(ax1, single_data, ['G', 'M', 'R'], ['G', 'M', 'R'])
@@ -176,10 +174,8 @@ def create_our_visualization(results, title, output_name):
     ax3 = fig.add_axes([0.68, 0.32, 0.22, 0.28])
     create_heatmap_panel(ax3, triple_data, ['G&M&R'], ['G', 'M', 'R'])
     
-    plt.suptitle(title, fontsize=13, y=0.98)
-    
     output_dir = Path('visualization')
-    plt.savefig(output_dir / f'{output_name}.png', dpi=150, bbox_inches='tight', facecolor='#f5f5f5')
+    plt.savefig(output_dir / f'{output_name}.png', dpi=150, bbox_inches='tight', facecolor='white')
     print(f"Saved: {output_dir}/{output_name}.png")
     plt.close()
 
@@ -223,7 +219,7 @@ def create_comparison_figure():
     
     # Create 2-row figure
     fig = plt.figure(figsize=(14, 8))
-    fig.patch.set_facecolor('#f5f5f5')
+    fig.patch.set_facecolor('white')
     
     # Row 1: Author
     ax1 = fig.add_axes([0.05, 0.55, 0.20, 0.35])
@@ -247,11 +243,9 @@ def create_comparison_figure():
     ax6 = fig.add_axes([0.62, 0.17, 0.20, 0.18])
     create_heatmap_panel(ax6, our_triple, ['G&M&R'], ['G', 'M', 'R'])
     
-    plt.suptitle("Multi-Attribute Balance Comparison: Author vs Ours (Adult Dataset)", fontsize=14, y=0.98)
-    
     output_dir = Path('visualization')
-    plt.savefig(output_dir / 'multi_attr_comparison.png', dpi=150, bbox_inches='tight', facecolor='#f5f5f5')
-    plt.savefig(output_dir / 'multi_attr_comparison.pdf', bbox_inches='tight', facecolor='#f5f5f5')
+    plt.savefig(output_dir / 'multi_attr_comparison.png', dpi=150, bbox_inches='tight', facecolor='white')
+    plt.savefig(output_dir / 'multi_attr_comparison.pdf', bbox_inches='tight', facecolor='white')
     print(f"Saved: {output_dir}/multi_attr_comparison.png")
     plt.close()
 

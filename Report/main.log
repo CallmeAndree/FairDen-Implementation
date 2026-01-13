@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.11.24)  13 JAN 2026 04:52
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.11.24)  13 JAN 2026 16:37
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -510,14 +510,14 @@ Overfull \hbox (19.69536pt too wide) in paragraph at lines 45--48
 
 [1
 
-]) (./content/section2_experiment.tex [2] [3]) (./content/section3_realworld.tex
+]) (./content/section2_experiment.tex [2] [3]) [4] (./content/section3_realworld.tex
 File: fig/rw_balance_recalc.png Graphic file (type bmp)
 <fig/rw_balance_recalc.png>
 File: fig/Legend_barplot.png Graphic file (type bmp)
 <fig/Legend_barplot.png>
 File: fig/balance_comparison.png Graphic file (type bmp)
 <fig/balance_comparison.png>
- [4] [5] [6]) (./content/section4_categorical.tex [7]) (./content/section5_kline.tex
+ [5] [6]) (./content/section4_categorical.tex [7] [8]) (./content/section5_kline.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1.
@@ -526,14 +526,13 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1.
 
-[8]
 File: fig/Lineplot_adult_both.png Graphic file (type bmp)
 <fig/Lineplot_adult_both.png>
 File: fig/Legend.png Graphic file (type bmp)
 <fig/Legend.png>
+[9]
 File: fig/kline_adult_comparison.png Graphic file (type bmp)
 <fig/kline_adult_comparison.png>
- [9]
 File: fig/kline_compas_comparison.png Graphic file (type bmp)
 <fig/kline_compas_comparison.png>
  [10]) (./content/section6_sensitive.tex [11]
@@ -542,7 +541,7 @@ File: fig/multi_attr_comparison.png Graphic file (type bmp)
  [12]
 File: fig/multi_attr_census.png Graphic file (type bmp)
 <fig/multi_attr_census.png>
- [13] [14]) [15] (./main.bbl
+ [13]) [14] (./main.bbl
 Underfull \hbox (badness 1127) in paragraph at lines 9--13
 []\TU/TimesNewRoman(0)/m/n/12 Julia Angwin, Jeff Larson, Surya Mattu, and Lauren Kirchner.  Machine bias: There’s
  []
@@ -562,7 +561,7 @@ Underfull \hbox (badness 1418) in paragraph at lines 46--49
 []\TU/TimesNewRoman(0)/m/n/12 Beata Strack, Jonathan P. DeShazo, Chris Gennings, Juan L. Olmo, Sebastian Ventura,
  []
 
-) [16] (./main.aux)
+) [15] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -572,15 +571,15 @@ L3 programming layer <2024-01-22>
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6B0C735F08505D77DE9A92F9C8D4761C;10139.
+(rerunfilecheck)             Checksum: ECE63C96E18C9CD469332151F3353B14;10813.
  ) 
 Here is how much of TeX's memory you used:
- 14303 strings out of 474878
- 275617 string characters out of 5762515
+ 14304 strings out of 474878
+ 275633 string characters out of 5762515
  1961627 words of memory out of 5000000
- 36121 multiletter control sequences out of 15000+600000
+ 36122 multiletter control sequences out of 15000+600000
  565132 words of font info for 91 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 79i,12n,93p,582b,432s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,12n,93p,582b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (16 pages).
+Output written on main.pdf (15 pages).

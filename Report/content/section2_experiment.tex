@@ -107,6 +107,54 @@ $minPts$ & $\varepsilon$ & DCSI & Cl. & $\varepsilon$ & DCSI & Cl. & $\varepsilo
 
 %------------------------------------------------------------------------------
 
+\subsection{Kết quả tối ưu cho Dataset Census}
+
+\subsubsection{Cấu hình tốt nhất}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Config} & \textbf{Sensitive} & $d$ & $minPts$ & $\varepsilon$ & \textbf{DCSI} & \textbf{Balance} \\
+\midrule
+cens\_gender & gender (2) & 4 & 7 & 0.6 & 0.9895 & 0.6170 \\
+cens\_race & race (5) & 4 & 10 & 0.5 & 0.9815 & 0.4974 \\
+cens\_marital & marital (7) & 4 & 7 & 1.0 & 0.9812 & 0.4950 \\
+\bottomrule
+\end{tabular}
+\caption{Kết quả tối ưu hyperparameters cho Census (đơn thuộc tính)}
+\end{table}
+
+\textbf{Nhận xét:}
+\begin{itemize}
+    \item DCSI rất cao ($>0.98$) cho thấy chất lượng phân cụm tốt.
+    \item Sử dụng 4 thuộc tính số: age, education\_num, hours\_per\_week, capital\_gain.
+    \item Dataset có 5000 mẫu được lấy từ UCI Census dataset.
+    \item Balance dao động từ 0.50-0.62, thấp hơn COMPAS do phân bố không cân bằng.
+\end{itemize}
+
+\subsubsection{\texorpdfstring{$\varepsilon$ tốt nhất cho mỗi $minPts$}{Epsilon tốt nhất cho mỗi minPts}}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{l|ccc|ccc|ccc}
+\toprule
+& \multicolumn{3}{c|}{\textbf{Gender only}} & \multicolumn{3}{c|}{\textbf{Race only}} & \multicolumn{3}{c}{\textbf{Marital only}} \\
+$minPts$ & $\varepsilon$ & DCSI & Cl. & $\varepsilon$ & DCSI & Cl. & $\varepsilon$ & DCSI & Cl. \\
+\midrule
+4 & 1.0 & 0.98 & 2 & 1.0 & 0.97 & 2 & 1.0 & 0.96 & 2 \\
+5 & 1.0 & 0.98 & 2 & 1.0 & 0.97 & 2 & 0.6 & 0.97 & 2 \\
+\textbf{7} & \textbf{0.6} & \textbf{0.99} & \textbf{2} & 0.9 & 0.97 & 2 & \textbf{1.0} & \textbf{0.98} & \textbf{2} \\
+\textbf{10} & 0.7 & 0.99 & 2 & \textbf{0.5} & \textbf{0.98} & \textbf{2} & 0.1 & 0.98 & 6 \\
+15 & 0.7 & 0.99 & 2 & 0.6 & 0.98 & 2 & 1.0 & 0.98 & 2 \\
+\bottomrule
+\end{tabular}
+\caption{$\varepsilon$ tối ưu cho mỗi giá trị $minPts$ theo từng cấu hình Census}
+\end{table}
+
+%------------------------------------------------------------------------------
+
 \subsection{So sánh với các Dataset trong bài báo gốc}
 
 \begin{table}[H]
@@ -127,8 +175,10 @@ $minPts$ & $\varepsilon$ & DCSI & Cl. & $\varepsilon$ & DCSI & Cl. & $\varepsilo
 \textbf{COMPAS (\cite{propublica2016})} & \textbf{sex (2)} & \textbf{4 (+1)} & \textbf{15} & \textbf{0.3} \\
 \textbf{Student (\cite{cortez2008})} & \textbf{sex (2)} & \textbf{6 (+4)} & \textbf{4} & \textbf{1.4} \\
 \textbf{Student (\cite{cortez2008})} & \textbf{address (2)} & \textbf{6 (+4)} & \textbf{5} & \textbf{1.3} \\
+\textbf{Census (\cite{kohavi1996})} & \textbf{gender (2)} & \textbf{4} & \textbf{7} & \textbf{0.6} \\
+\textbf{Census (\cite{kohavi1996})} & \textbf{race (5)} & \textbf{4} & \textbf{10} & \textbf{0.5} \\
+\textbf{Census (\cite{kohavi1996})} & \textbf{marital (7)} & \textbf{4} & \textbf{7} & \textbf{1.0} \\
 \bottomrule
 \end{tabular}
 \caption{So sánh thiết lập thực nghiệm với các dataset trong bài báo gốc}
 \end{table}
-

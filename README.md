@@ -1,6 +1,6 @@
 # FairDen: Phân cụm dựa trên mật độ công bằng
 
-Repository này là bản triển khai chính thức của [FairDen: Fair Density-Based Clustering](https://iclr.cc/virtual/2025/poster/29171), được chấp nhận tại ICLR 2025.
+Repository này là bản cài đặt thực nghiệm chính thức của [FairDen: Fair Density-Based Clustering](https://iclr.cc/virtual/2025/poster/29171), được chấp nhận tại ICLR 2025.
 
 ---
 

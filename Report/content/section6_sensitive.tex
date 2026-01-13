@@ -4,7 +4,7 @@
 
 Các thuật toán fair clustering trước đây chỉ có thể đảm bảo công bằng cho \textbf{một thuộc tính nhạy cảm duy nhất} tại một thời điểm (ví dụ: chỉ cân bằng theo Giới tính hoặc chỉ theo Chủng tộc). FairDen có khả năng xử lý \textbf{bất kỳ số lượng} thuộc tính nhạy cảm nào cùng một lúc.
 
-\textbf{Dữ liệu:} Bộ dữ liệu Adult và Census với 3 thuộc tính nhạy cảm:
+\textbf{Dữ liệu:} Bộ dữ liệu Adult (thực nghiệm gốc của tác giả) và Census (dữ liệu mới của nhóm) với 3 thuộc tính nhạy cảm:
 \begin{itemize}
     \item \textbf{G} - Gender (Giới tính)
     \item \textbf{M} - Marital status (Tình trạng hôn nhân)  
@@ -15,9 +15,9 @@ Các thuật toán fair clustering trước đây chỉ có thể đảm bảo c
 
 FairDen được chạy với 7 cấu hình khác nhau:
 \begin{itemize}
-    \item \textbf{Single:} G, M, R (chỉ 1 thuộc tính nhạy cảm)
-    \item \textbf{Double:} G\&M, G\&R, M\&R (2 thuộc tính nhạy cảm)
-    \item \textbf{Triple:} G\&M\&R (cả 3 thuộc tính nhạy cảm)
+    \item \textbf{Chỉ 1 thuộc tính nhạy cảm:} G, M, R 
+    \item \textbf{2 thuộc tính nhạy cảm:} G\&M, G\&R, M\&R 
+    \item \textbf{3 thuộc tính nhạy cảm:} G\&M\&R 
 \end{itemize}
 
 \subsection{Kết quả trên Tập Adult}
@@ -41,13 +41,6 @@ FairDen được chạy với 7 cấu hình khác nhau:
 \caption{Kết quả Balance của FairDen trên tập Census với các cấu hình thuộc tính nhạy cảm khác nhau.}
 \label{fig:multi_attr_census}
 \end{figure}
-
-\textbf{Kết quả Census:}
-\begin{itemize}
-    \item \textbf{Single:} G(0.50, 0.28, 0.46), M(0.77, 0.34, 0.59), R(0.71, 0.35, 0.32)
-    \item \textbf{Double:} G\&M(0.57, 0.23, 0.56), G\&R(0.68, 0.33, 0.30), M\&R(0.83, 0.28, 0.52)
-    \item \textbf{Triple:} G\&M\&R(0.69, 0.35, 0.39)
-\end{itemize}
 
 \subsection{Phân tích và Đánh giá}
 

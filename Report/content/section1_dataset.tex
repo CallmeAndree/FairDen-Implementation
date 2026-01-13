@@ -14,7 +14,7 @@ Các thuộc tính nhạy cảm gồm: giới tính (gender), chủng tộc (rac
 Tùy theo thiết lập, dữ liệu có năm đặc trưng số và tối đa hai đặc trưng phân loại.
 Lưu ý rằng phân bố các nhóm trong từng thuộc tính nhạy cảm có thể rất không cân bằng, ví dụ hơn 70\% các điểm dữ liệu thuộc về một nhóm chủng tộc được bảo vệ.
 
-Chúng tôi lấy mẫu 2000 điểm dữ liệu từ bộ dữ liệu và loại bỏ các bản ghi trùng lặp dựa trên các đặc trưng còn lại.
+Tác giả lấy mẫu 2000 điểm dữ liệu từ bộ dữ liệu và loại bỏ các bản ghi trùng lặp dựa trên các đặc trưng còn lại.
 
 \subsubsection{Bank}
 
@@ -22,22 +22,22 @@ Bộ dữ liệu Bank marketing \citep{moro2014} bao gồm 17 đặc trưng đư
 Thuộc tính nhạy cảm tình trạng hôn nhân (marital) gồm ba nhóm nhạy cảm: đã kết hôn (married), đã ly hôn (divorced) và độc thân (single).
 
 Bộ dữ liệu có một nhãn nhị phân cho biết một người có đăng ký tiền gửi có kỳ hạn hay không.
-Chúng tôi sử dụng ba biến số và hai biến phân loại.
-Chúng tôi lấy mẫu 5000 điểm dữ liệu và loại bỏ các bản ghi trùng lặp dựa trên các đặc trưng còn lại.
+Tác giả sử dụng ba biến số và hai biến phân loại.
+Tác giả lấy mẫu 5000 điểm dữ liệu và loại bỏ các bản ghi trùng lặp dựa trên các đặc trưng còn lại.
 
 \subsubsection{Communities and Crime}
 
 Bộ dữ liệu Communities and Crime \citep{asuncion2007} bao gồm dữ liệu từ Tổng điều tra dân số Hoa Kỳ năm 1990, dữ liệu thực thi pháp luật từ khảo sát LEMAS năm 1990, và dữ liệu tội phạm từ Báo cáo Tội phạm Thống nhất (UCR) của FBI năm 1995.
 
-Chúng tôi sử dụng các thuộc tính nhạy cảm như được mô tả trong \citet{kamiran2013} và \citet{kamishima2012}, thu được 67 đặc trưng số.
-Chúng tôi loại bỏ các điểm dữ liệu trùng lặp.
+Tác giả sử dụng các thuộc tính nhạy cảm như được mô tả trong \citet{kamiran2013} và \citet{kamishima2012}, thu được 67 đặc trưng số.
+Tác giả loại bỏ các điểm dữ liệu trùng lặp.
 
 \subsubsection{Diabetes}
 
 Bộ dữ liệu Diabetes \citep{strack2014} bao gồm hồ sơ y tế về bệnh tiểu đường từ 130 bệnh viện tại Hoa Kỳ.
 Dữ liệu được gán nhãn theo việc bệnh nhân có tái nhập viện trong vòng 30 ngày hay không.
 
-Chúng tôi sử dụng bảy đặc trưng số và lấy mẫu 5000 điểm dữ liệu, đồng thời loại bỏ các bản ghi trùng lặp.
+Tác giả sử dụng bảy đặc trưng số và lấy mẫu 5000 điểm dữ liệu, đồng thời loại bỏ các bản ghi trùng lặp.
 Thuộc tính nhạy cảm là giới tính (gender), được chia thành nữ (female) và nam (male).
 
 \subsubsection{Dữ liệu giả lập (Synthetic Data --- DENSIRED)}
@@ -57,8 +57,8 @@ Ngoài 4 bộ dữ liệu gốc, nhóm bổ sung thêm 3 bộ dữ liệu mới 
 Bộ dữ liệu COMPAS \citep{propublica2016} bao gồm thông tin về các bị cáo hình sự tại hạt Broward, Florida.
 Dữ liệu được gán nhãn theo việc bị cáo có tái phạm tội trong vòng hai năm hay không.
 
-Chúng tôi sử dụng bốn đặc trưng số và một đặc trưng phân loại.
-Thuộc tính nhạy cảm là chủng tộc (race), gồm bốn nhóm: African-American, Caucasian, Hispanic và Other.
+Nhóm sử dụng bốn đặc trưng số và một đặc trưng phân loại.
+Các thuộc tính nhạy cảm gồm: chủng tộc (race) với bốn nhóm (African-American, Caucasian, Hispanic, Other) và giới tính (sex) với hai nhóm (Male, Female).
 Lưu ý rằng phân bố các nhóm rất không cân bằng, với hơn 50\% thuộc nhóm African-American.
 
 \subsubsection{Student Performance}
@@ -66,7 +66,7 @@ Lưu ý rằng phân bố các nhóm rất không cân bằng, với hơn 50\% t
 Bộ dữ liệu Student Performance \citep{cortez2008} bao gồm thông tin về học sinh trung học tại Bồ Đào Nha.
 Dữ liệu được gán nhãn theo điểm cuối kỳ (G3) của học sinh.
 
-Chúng tôi sử dụng sáu đặc trưng số và bốn đặc trưng phân loại từ 649 học sinh.
+Nhóm sử dụng sáu đặc trưng số và bốn đặc trưng phân loại từ 649 học sinh.
 Các thuộc tính nhạy cảm gồm: giới tính (sex) với hai nhóm Female/Male và địa chỉ (address) với hai nhóm Urban/Rural.
 
 \subsubsection{Census Income (UCI)}
@@ -74,6 +74,6 @@ Các thuộc tính nhạy cảm gồm: giới tính (sex) với hai nhóm Female
 Bộ dữ liệu Census Income \citep{kohavi1996} là phiên bản mở rộng của Adult, bao gồm 48.842 bản ghi từ điều tra dân số Hoa Kỳ năm 1994.
 Dữ liệu được gán nhãn theo thu nhập hằng năm (trên hay dưới 50.000 đô la Mỹ).
 
-Chúng tôi sử dụng bốn đặc trưng số và lấy mẫu 2000 điểm dữ liệu.
+Nhóm sử dụng bốn đặc trưng số và lấy mẫu 5000 điểm dữ liệu.
 Các thuộc tính nhạy cảm được khảo sát gồm: giới tính (gender), chủng tộc (race) với năm nhóm, và tình trạng hôn nhân (marital\_status) với bảy nhóm.
 Lưu ý rằng phân bố các nhóm rất không cân bằng, đặc biệt nhóm Married-AF-spouse chỉ chiếm 0.08\% dữ liệu.
