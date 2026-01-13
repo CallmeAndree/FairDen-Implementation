@@ -2,20 +2,20 @@
 
 \subsection{Mục tiêu của Thực nghiệm}
 
-Thông thường, chúng ta không biết trước dữ liệu nên chia thành bao nhiêu cụm là tốt nhất. Một thuật toán tốt phải chạy ổn định dù ta chọn $k=2$ hay $k=10$ - độ ``lì đòn'' (Robustness) của thuật toán FairDen khi người dùng thay đổi số lượng cụm $k$.
+Thông thường, ta không biết trước dữ liệu nên chia thành bao nhiêu cụm là tốt nhất. Thực nghiệm này đánh giá độ ``lì đòn'' (Robustness) của thuật toán FairDen khi người dùng thay đổi số lượng cụm $k$ từ 2 đến 10.
 
 \subsection{Thiết lập Thực nghiệm}
 
 \textbf{Đối thủ cạnh tranh:}
 \begin{itemize}
-    \item \textbf{Fairlet (MCF)} và \textbf{Scalable Fair Clustering}: Chỉ hoạt động với thuộc tính nhạy cảm \textbf{nhị phân} (Binary). Nếu thuộc tính có từ 3 giá trị trở lên (Non-binary), các thuật toán này \textbf{không chạy được}.
+    \item \textbf{Fairlet (MCF)} và \textbf{Scalable Fair Clustering}: Chỉ hoạt động với thuộc tính nhạy cảm \textbf{nhị phân} (Binary). Nếu thuộc tính có từ 3 giá trị trở lên, các thuật toán này \textbf{không chạy được}.
     \item \textbf{FairDen} và \textbf{FairSC}: Có thể xử lý đa nhóm (Multi-group).
 \end{itemize}
 
 \textbf{Cách thực hiện:} Thay đổi $k$ từ 2 đến 10 và đo Balance, DCSI trên tập Adult với:
 \begin{itemize}
-    \item \textbf{Race} (5 nhóm): Chỉ có FairDen và FairSC tham gia
-    \item \textbf{Gender} (2 nhóm): Tất cả các thuật toán đều tham gia
+    \item \textbf{Race} (5 nhóm - adult5): Chỉ có FairDen và FairSC tham gia
+    \item \textbf{Gender} (2 nhóm - adult2): Tất cả các thuật toán đều tham gia
 \end{itemize}
 
 \subsection{Kết quả của Tác giả}
@@ -39,8 +39,6 @@ Hình trong bài báo gốc cho thấy FairDen đạt Balance cao nhất với t
 \label{fig:kline_our}
 \end{figure}
 
-\textbf{Kết quả trên tập COMPAS (bổ sung của nhóm):}
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig/kline_compas_comparison.png}
@@ -51,11 +49,34 @@ Hình trong bài báo gốc cho thấy FairDen đạt Balance cao nhất với t
 \subsection{Phân tích Kết quả}
 
 \begin{itemize}
-    \item \textbf{Thuộc tính Đa nhóm (Race):} FairDen luôn chiến thắng với Balance cao nhất qua mọi giá trị $k$, cân bằng tỷ lệ các nhóm chủng tộc trong mọi cụm tốt hơn hẳn FairSC. Về chất lượng cấu trúc (DCSI), FairDen đạt mức tương đương với FairSC. Điều này cho thấy FairDen là lựa chọn số 1 cho các bài toán phức tạp có nhiều nhóm nhạy cảm.
+    \item \textbf{Về Balance:}
+    \begin{itemize}
+        \item FairDen đạt kết quả Balance cao trên các tập dữ liệu thực nghiệm (Adult và COMPAS).
+        \item Tuy nhiên, với thuộc tính nhị phân (Gender/Sex), FairDen có Balance thấp hơn so với Fairlet và Scalable như minh họa trong các hình vẽ.
+        \item Với thuộc tính đa nhóm (Race), FairDen vượt trội hơn FairSC --- đối thủ duy nhất cũng hỗ trợ đa nhóm.
+    \end{itemize}
     
-    \item \textbf{Thuộc tính Nhị phân (Gender/Sex):} Với số cụm nhỏ ($k \leq 5$), FairDen đạt DCSI tốt nhất, giữ được cấu trúc mật độ tốt nhất; với số cụm lớn ($k > 5$), Scalable và FairSC vượt lên một chút do tạo ra các cụm tròn trịa hơn về mặt toán học. Về độ công bằng, hầu hết các phương pháp (FairDen, Scalable, Fairlet) đều đạt Balance cao ($>0.75$), riêng FairSC thường có độ cân bằng thấp hơn.
+    \item \textbf{Về DCSI:}
+    \begin{itemize}
+        \item FairDen đạt kết quả DCSI tốt, đặc biệt \textbf{cao vượt trội} trên thực nghiệm COMPAS của nhóm.
+        \item Ở các giá trị $k$ lớn, FairDen có DCSI thấp hơn FairSC hoặc Scalable, nhưng vẫn duy trì mức \textbf{ổn định} qua các giá trị $k$ khác nhau.
+    \end{itemize}
+    
+    \item \textbf{Cân bằng và ổn định:}
+    \begin{itemize}
+        \item Điểm mạnh của FairDen là khả năng \textbf{cân bằng tốt giữa DCSI và Balance}.
+        \item Trong khi các thuật toán khác có thể đạt điểm cao hơn ở một chỉ số, FairDen duy trì hiệu suất \textbf{ổn định} trên cả hai chỉ số qua mọi giá trị $k$.
+    \end{itemize}
 \end{itemize}
 
 \subsection{Kết luận}
 
-FairDen thể hiện sự đa năng khi là một trong hai thuật toán (cùng FairSC) có thể xử lý dữ liệu phức tạp với thuộc tính nhạy cảm có $\geq 3$ nhóm, đồng thời cho độ công bằng tốt hơn hẳn. Với dữ liệu đơn giản (2 nhóm), FairDen vẫn hoạt động ổn định, đặc biệt khi $k \leq 5$ --- trường hợp phổ biến nhất trong thực tế. Kết quả thực nghiệm của nhóm tái hiện xu hướng trong bài báo gốc, và xu hướng tương tự cũng được quan sát trên tập COMPAS mà nhóm bổ sung thêm.
+\begin{enumerate}
+    \item \textbf{Ưu điểm với đa nhóm:} FairDen là lựa chọn số 1 cho các bài toán có thuộc tính nhạy cảm $\geq 3$ nhóm, vì FairSC là đối thủ duy nhất khác có thể xử lý đa nhóm nhưng Balance thấp hơn đáng kể.
+    
+    \item \textbf{Cân bằng Balance-DCSI:} FairDen không phải lúc nào cũng đạt điểm cao nhất ở từng chỉ số riêng lẻ, nhưng là thuật toán cân bằng và ổn định nhất giữa Balance và DCSI.
+    
+    \item \textbf{Hiệu quả trên COMPAS:} Kết quả trên tập COMPAS cho thấy FairDen đạt DCSI vượt trội so với các đối thủ, đồng thời duy trì Balance ở mức chấp nhận được.
+    
+    \item \textbf{Tái hiện thành công:} Xu hướng kết quả của nhóm tương đồng với bài báo gốc, xác nhận tính đúng đắn của thuật toán.
+\end{enumerate}

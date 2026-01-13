@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.11.24)  13 JAN 2026 16:37
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.11.24)  13 JAN 2026 23:04
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -535,7 +535,12 @@ File: fig/kline_adult_comparison.png Graphic file (type bmp)
 <fig/kline_adult_comparison.png>
 File: fig/kline_compas_comparison.png Graphic file (type bmp)
 <fig/kline_compas_comparison.png>
- [10]) (./content/section6_sensitive.tex [11]
+ [10]
+Overfull \hbox (7.275pt too wide) in paragraph at lines 54--55
+[]\TU/TimesNewRoman(0)/m/n/12 FairDen đạt kết quả Balance cao trên các tập dữ liệu thực nghiệm (Adult và COMPAS). 
+ []
+
+[11]) (./content/section6_sensitive.tex
 File: fig/multi_attr_comparison.png Graphic file (type bmp)
 <fig/multi_attr_comparison.png>
  [12]
@@ -571,15 +576,15 @@ L3 programming layer <2024-01-22>
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: ECE63C96E18C9CD469332151F3353B14;10813.
+(rerunfilecheck)             Checksum: 444557E826E2F62AEB69146E3285613F;9809.
  ) 
 Here is how much of TeX's memory you used:
- 14304 strings out of 474878
- 275633 string characters out of 5762515
+ 14303 strings out of 474878
+ 275617 string characters out of 5762515
  1961627 words of memory out of 5000000
- 36122 multiletter control sequences out of 15000+600000
+ 36121 multiletter control sequences out of 15000+600000
  565132 words of font info for 91 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 79i,12n,93p,582b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,12n,93p,764b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on main.pdf (15 pages).

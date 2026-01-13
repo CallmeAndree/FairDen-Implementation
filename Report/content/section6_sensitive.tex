@@ -2,27 +2,26 @@
 
 \subsection{Mục tiêu của Thực nghiệm}
 
-Các thuật toán fair clustering trước đây chỉ có thể đảm bảo công bằng cho \textbf{một thuộc tính nhạy cảm duy nhất} tại một thời điểm (ví dụ: chỉ cân bằng theo Giới tính hoặc chỉ theo Chủng tộc). FairDen có khả năng xử lý \textbf{bất kỳ số lượng} thuộc tính nhạy cảm nào cùng một lúc.
+Các thuật toán fair clustering trước đây (Chierichetti et al., Backurs et al., Kleindessner et al.) bị giới hạn chỉ có thể đảm bảo công bằng cho \textbf{một thuộc tính nhạy cảm duy nhất} tại một thời điểm. FairDen có khả năng xử lý \textbf{bất kỳ số lượng} thuộc tính nhạy cảm nào cùng một lúc, cho phép đạt được \textbf{Công bằng Giao thoa} (Intersectional Fairness).
 
-\textbf{Dữ liệu:} Bộ dữ liệu Adult (thực nghiệm gốc của tác giả) và Census (dữ liệu mới của nhóm) với 3 thuộc tính nhạy cảm:
+\textbf{Dữ liệu thực nghiệm:}
 \begin{itemize}
-    \item \textbf{G} - Gender (Giới tính)
-    \item \textbf{M} - Marital status (Tình trạng hôn nhân)  
-    \item \textbf{R} - Race (Chủng tộc)
+    \item \textbf{Adult}: 3 thuộc tính nhạy cảm --- Gender (G), Marital status (M), Race (R)
+    \item \textbf{Census}: 3 thuộc tính nhạy cảm --- Gender (2 nhóm), Race (5 nhóm), Marital status (7 nhóm)
 \end{itemize}
 
 \subsection{Thiết lập Thực nghiệm}
 
 FairDen được chạy với 7 cấu hình khác nhau:
 \begin{itemize}
-    \item \textbf{Chỉ 1 thuộc tính nhạy cảm:} G, M, R 
-    \item \textbf{2 thuộc tính nhạy cảm:} G\&M, G\&R, M\&R 
-    \item \textbf{3 thuộc tính nhạy cảm:} G\&M\&R 
+    \item \textbf{Single:} G, M, R (chỉ 1 thuộc tính nhạy cảm)
+    \item \textbf{Double:} G\&M, G\&R, M\&R (2 thuộc tính nhạy cảm)
+    \item \textbf{Triple:} G\&M\&R (cả 3 thuộc tính nhạy cảm)
 \end{itemize}
 
-\subsection{Kết quả trên Tập Adult}
+\subsection{Kết quả và Đánh giá}
 
-\subsubsection{So sánh với Kết quả Tác giả}
+\subsubsection{Kết quả trên tập Adult --- So sánh với Tác giả}
 
 \begin{figure}[H]
 \centering
@@ -31,9 +30,15 @@ FairDen được chạy với 7 cấu hình khác nhau:
 \label{fig:multi_attr_comparison}
 \end{figure}
 
-\textbf{Nhận xét:} Kết quả của nhóm tái hiện chính xác kết quả trong bài báo gốc. Sự khác biệt duy nhất là ở cột M của cấu hình G\&M\&R (0.83 vs 0.82), nằm trong phạm vi sai số do ngẫu nhiên.
+Kết quả của nhóm tái hiện chính xác kết quả trong bài báo gốc, xác nhận tính đúng đắn của implementation. Sự khác biệt duy nhất nằm ở cột M của cấu hình G\&M\&R (0.83 vs 0.82), thuộc phạm vi sai số ngẫu nhiên.
 
-\subsection{Kết quả trên Tập Census (Dữ liệu mới)}
+Khi chỉ chọn một thuộc tính làm nhạy cảm, độ cân bằng đạt giá trị cao nhất tại đúng thuộc tính được chọn (thể hiện qua đường chéo của biểu đồ). Ví dụ: cấu hình ``Giới tính'' cho Balance\_G = 0.96, trong khi Balance của Chủng tộc và Hôn nhân thấp hơn vì thuật toán không bị ép buộc phải tối ưu cho chúng.
+
+Khi chạy FairDen với 2 thuộc tính nhạy cảm đồng thời, thuật toán đạt trạng thái \textbf{Tối ưu Pareto} (Pareto-optimal). Nghĩa là thuật toán tìm được điểm tốt nhất, nơi mà độ cân bằng của cả hai thuộc tính đều cao ở mức chấp nhận được. Cấu hình G\&R đạt Balance\_G = 1.00 và Balance\_R = 0.82.
+
+Khi nhìn vào chỉ số Balance riêng lẻ, cấu hình G\&M\&R (0.87, 0.83, 0.78) có vẻ thấp hơn một số cấu hình 2 thuộc tính. Tuy nhiên, nguyên nhân nằm ở việc số lượng \textbf{nhóm con giao thoa} tăng lên rất nhiều. Thay vì chỉ cân bằng ``Nam vs Nữ'', thuật toán phải cân bằng cho các tổ hợp như ``Phụ nữ - Da đen - Đã ly hôn'' so với ``Nam - Da trắng - Độc thân''. Đây chính là khái niệm \textbf{Công bằng Giao thoa} (Intersectional Fairness) --- FairDen chấp nhận giảm điểm chung của từng thuộc tính đơn lẻ một chút để đảm bảo không có bất kỳ nhóm giao thoa nhỏ nào bị bỏ lại phía sau.
+
+\subsubsection{Kết quả trên tập Census --- Dữ liệu mới}
 
 \begin{figure}[H]
 \centering
@@ -42,54 +47,11 @@ FairDen được chạy với 7 cấu hình khác nhau:
 \label{fig:multi_attr_census}
 \end{figure}
 
-\subsection{Phân tích và Đánh giá}
+Thực nghiệm trên tập Census cho thấy nhiều hiện tượng thú vị về sự tương tác giữa các thuộc tính xã hội.
 
-\subsubsection{Xu hướng chung trên cả hai tập dữ liệu}
+Phát hiện đáng chú ý nhất là việc tối ưu hóa cho các thuộc tính khó (Race, Marital) lại vô tình làm tăng độ công bằng cho thuộc tính dễ (Gender). Khi chạy riêng lẻ Gender (G), Balance chỉ đạt 0.50. Nhưng khi chạy Race + Marital (M\&R), Balance của Gender vọt lên 0.83 --- mức cao nhất trong mọi thí nghiệm. Nguyên nhân nằm ở sự tương quan mạnh trong dữ liệu: Marital Status chứa các giá trị như ``Husband'' và ``Wife'' liên kết trực tiếp với giới tính. Khi FairDen nỗ lực xáo trộn dữ liệu để chia đều các nhóm chủng tộc và hôn nhân, nó buộc phải phá vỡ các cụm tự nhiên, dẫn đến phân phối giới tính trở nên đều đặn hơn một cách tự nhiên.
 
-\begin{enumerate}
-    \item \textbf{Single Attribute:} Balance đạt giá trị cao nhất tại đúng thuộc tính được chọn. Ví dụ: cấu hình G cho Balance\_G cao nhất.
-    
-    \item \textbf{Double Attributes:} Đạt trạng thái Pareto-optimal --- cả hai thuộc tính được chọn đều có Balance cao, còn thuộc tính không được chọn có Balance thấp hơn.
-    
-    \item \textbf{Triple Attributes:} Balance riêng lẻ có vẻ thấp hơn so với Double, nhưng đây là sự đánh đổi cần thiết để đảm bảo Intersectional Fairness.
-\end{enumerate}
+Balance của Race và Marital luôn thấp hơn Gender (0.3--0.5 so với 0.6--0.8). Nguyên nhân là số lượng nhóm con quá lớn và chênh lệch: Race có 5 nhóm với ``Amer-Indian-Eskimo'' số lượng cực ít, Marital có 7 nhóm với ``Married-AF-spouse'' chỉ chiếm 0.08\% dữ liệu. Chỉ số Balance được tính bằng $\min(ratio) / \max(ratio)$, nên chỉ cần một nhóm nhỏ bị phân bố lệch, chỉ số Balance sẽ tụt xuống ngay lập tức. FairDen đã rất cố gắng đạt mức 0.3--0.5 cho bài toán đa nhóm phức tạp này.
 
-\subsubsection{So sánh Adult vs Census}
+Cấu hình Intersectional (G\&M\&R) tuy không đạt điểm cao nhất ở từng tiêu chí riêng lẻ, nhưng là giải pháp an toàn và bền vững nhất. Cấu hình Race (R) đơn lẻ cho Race Balance $\sim$0.32, trong khi cấu hình Intersectional đẩy lên $\sim$0.39. Điều này chứng minh việc xét đến các nhóm giao thoa giúp thuật toán nhìn thấy các nhóm thiểu số bị che khuất, từ đó bảo vệ họ tốt hơn.
 
-\begin{table}[H]
-\centering
-\begin{tabular}{llccc}
-\toprule
-\textbf{Setting} & \textbf{Dataset} & \textbf{Balance\_G} & \textbf{Balance\_M} & \textbf{Balance\_R} \\
-\midrule
-\multirow{2}{*}{G\&M\&R} & Adult & 0.87 & 0.82 & 0.79 \\
- & Census & 0.69 & 0.35 & 0.39 \\
-\bottomrule
-\end{tabular}
-\caption{So sánh Balance tại cấu hình Triple (G\&M\&R) giữa Adult và Census.}
-\end{table}
-
-\textbf{Nhận xét:}
-\begin{itemize}
-    \item FairDen hoạt động tốt hơn trên Adult với Balance cao nhất quán ($>0.75$).
-    \item Trên Census, Balance thấp hơn đáng kể, đặc biệt với Marital status và Race.
-    \item Sự khác biệt này có thể do phân bố dữ liệu Census không cân bằng hơn Adult.
-\end{itemize}
-
-\subsection{Intersectional Fairness (Công bằng Giao thoa)}
-
-Khi kết hợp 3 thuộc tính, số lượng \textbf{nhóm con (subgroups)} tăng lên rất nhiều. Thay vì chỉ cân bằng ``Nam vs Nữ'', thuật toán phải cân bằng cho các tổ hợp như ``Phụ nữ - Da đen - Đã ly hôn'' so với ``Nam - Da trắng - Độc thân''.
-
-Trên cả hai tập dữ liệu, việc sử dụng cả 3 thuộc tính giúp đảm bảo không có nhóm giao thoa nào bị bỏ lại phía sau, dù có thể làm giảm Balance riêng lẻ.
-
-\subsection{Kết luận}
-
-\begin{enumerate}
-    \item \textbf{Tái hiện thành công:} Kết quả Adult của nhóm khớp với tác giả, xác nhận tính đúng đắn của implementation.
-    
-    \item \textbf{Khả năng tổng quát hóa:} FairDen hoạt động trên dữ liệu mới (Census) với xu hướng tương tự, dù Balance tuyệt đối thấp hơn do đặc thù dữ liệu.
-    
-    \item \textbf{Trade-off có ý nghĩa:} Việc xem xét các nhóm nhạy cảm kết hợp có thể không mang lại giải pháp tối ưu nhất cho từng thuộc tính riêng lẻ, nhưng nó đảm bảo sự phân bố cân bằng nhất trên \textbf{tất cả các tổ hợp}.
-    
-    \item \textbf{Ưu điểm của FairDen:} FairDen là một trong số ít thuật toán có thể xử lý nhiều thuộc tính nhạy cảm cùng lúc, cho phép đạt được Intersectional Fairness.
-\end{enumerate}

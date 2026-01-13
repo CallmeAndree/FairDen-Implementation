@@ -6,7 +6,7 @@ Repository này là bản cài đặt thực nghiệm chính thức của [FairD
 
 ## 🔄 Thông tin Fork
 
-Repository này là **bản fork và mở rộng** từ bản triển khai FairDen gốc của các tác giả. Nó đã được sử dụng, mở rộng và thực nghiệm lại bởi nhóm sinh viên tại **Trường Đại học Khoa học tự nhiên (HCMUS), Đại học Quốc gia TP. Hồ Chí Minh**.
+Repository là bản mở rộng và tái sử dụng từ cài đặt gốc của tác giả, với mục đích kiểm tra tính đúng đắn và mở rộng thực nghiệm.
 
 ### Thành viên nhóm
 - **Phan Nhựt Anh** - MSSV: 23127023
@@ -143,14 +143,14 @@ if __name__ == "__main__":
 │
 ├── results/                        # Kết quả thực nghiệm
 │   ├── rw_experiment/              # Thực nghiệm Real-World (gom cụm công bằng)
-│   ├── k_line_experiment/          # Thực nghiệm K-line (thay đổi số cụm k)
-│   ├── categorical_exp/            # Thực nghiệm Categorical (FairDen vs FairDen-)
-│   ├── cens_experiment/            # Thực nghiệm Census (nhiều biến nhạy cảm)
-│   │   └── census_fairden_results.csv
+│   ├── k_line_experiment/          # Thực nghiệm K-line (thay đổi số cụm k) của tác giả
+│   ├── compas_experiment/          # Kết quả cho thực nghiệm K-line trên tập COMPAS
+│   ├── adult_multi_exp/            # Kết quả cho thực nghiệm Multiple sensitive attribute trên tập Adult
+│   ├── multi_attr/                 # Kết quả cho thực nghiệm Multiple sensitive attribute trên tập Census
 │   ├── compas_hyperparam/          # Tối ưu tham số cho COMPAS
 │   ├── student_hyperparam/         # Tối ưu tham số cho Student
 │   ├── census_hyperparam/          # Tối ưu tham số cho Census (7 configs)
-│   └── ...                         
+│   └──               
 │
 ├── src/
 │   ├── comparative_methods/        # Triển khai các phương pháp so sánh
@@ -189,7 +189,7 @@ if __name__ == "__main__":
 ```
 
 ## Trích dẫn
-Nếu bạn sử dụng phương pháp hoặc mã nguồn từ repository này, vui lòng trích dẫn bài báo của tác giả:
+Nếu sử dụng phương pháp hoặc mã nguồn từ repository này, vui lòng trích dẫn bài báo của tác giả:
 
 Lena Krieger*, Anna Beer*, Pernille Matthews, Anneka Myrup Thiesson, Ira Assent, (2025, April). FairDen: Fair Density-based Clustering. Accepted for publication at the *Thirteenth International Conference on Learning Representations (ICLR)*.
 
