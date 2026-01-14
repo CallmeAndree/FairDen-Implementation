@@ -20,8 +20,8 @@ from src.experiments.realworld_experiment import realworld_experiment
 from src.experiments.adult_experiment import adult_experiment
 from src.experiments.compas_experiment import compas_experiment
 from src.experiments.student_experiment import student_experiment
-from src.experiments.compas_hyperparam_search import compas_hyperparameter_search
-from src.experiments.student_hyperparam_search import student_hyperparameter_search
+from src.experiments.compas_hyperparam_search import main as compas_hyperparameter_search
+from src.experiments.student_hyperparam_search import main as student_hyperparameter_search
 from src.experiments.census_hyperparam_search import main as census_hyperparam_search
 from src.experiments.census_experiment import census_experiment
 

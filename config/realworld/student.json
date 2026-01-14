@@ -26,8 +26,8 @@
     "target": "G3",
     "random_state": 42,
     "n_samples": "all",
-    "DBSCAN_min_pts": 4,
-    "DBSCAN_eps": 1.4,
+    "DBSCAN_min_pts": 5,
+    "DBSCAN_eps": 1.0,
     "DCSI_min_pts": 5,
     "n_clusters_db": 2
 }

@@ -37,9 +37,9 @@ Nhóm đã bổ sung việc tối ưu hóa siêu tham số DBSCAN cho các tập
 
 #### Cách chạy thực nghiệm
 ```python
-from src.experiments.compas_hyperparam_search import compas_hyperparam_search
-from src.experiments.student_hyperparam_search import student_hyperparam_search
-
+from src.experiments.compas_hyperparam_search import main as compas_hyperparameter_search
+from src.experiments.student_hyperparam_search import main as student_hyperparameter_search
+from src.experiments.census_hyperparam_search import main as census_hyperparam_search
 def main():
     compas_hyperparam_search()   # Cho tập COMPAS
     student_hyperparam_search()  # Cho tập Student
