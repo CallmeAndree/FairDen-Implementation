@@ -6,7 +6,6 @@ matplotlib
 scikit_learn
 scikit_learn_extra
 seaborn
-densired
 tqdm
 networkx
 interruptingcow
