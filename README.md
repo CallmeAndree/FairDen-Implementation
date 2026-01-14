@@ -1,31 +1,26 @@
-# FairDen: Phân cụm dựa trên mật độ công bằng
+# FairDen: Phân cụm công bằng dựa trên mật độ 
 
-Repository này là bản cài đặt thực nghiệm chính thức của [FairDen: Fair Density-Based Clustering](https://iclr.cc/virtual/2025/poster/29171), được chấp nhận tại ICLR 2025.
+Repository này là phiên bản mở rộng và phát triển dựa trên mã nguồn chính thức của bài báo [FairDen: Fair Density-Based Clustering](https://iclr.cc/virtual/2025/poster/29171), (ICLR 2025). Với mục đích kiểm tra tính đúng đắn và mở rộng thực nghiệm trên những tập dữ liệu mới.
 
----
-
-## 🔄 Thông tin Fork
-
-Repository là bản mở rộng và tái sử dụng từ cài đặt gốc của tác giả, với mục đích kiểm tra tính đúng đắn và mở rộng thực nghiệm.
 
 ### Thành viên nhóm
 - **Phan Nhựt Anh** - MSSV: 23127023
 - **Nguyễn Hoàng Quân** - MSSV: 23127106
 - **Thái Hoàng Phúc** - MSSV: 23127458
 
-### Bổ sung của nhóm:
+### Các đóng góp bổ sung của nhóm:
 
 | File | Mô tả | Thực nghiệm | 
 |------|-------|-----------|
-| `src/experiments/compas_experiment.py` | Thực nghiệm trên tập dữ liệu COMPAS | Gôm cụm công bằng trên dữ liệu thực tế
-| `src/experiments/student_experiment.py` | Thực nghiệm trên tập dữ liệu Student Performance | Gôm cụm công bằng trên dữ liệu thực tế, Gôm cụm với dữ liệu nhiều biến phân loại
-| `src/experiments/compas_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập COMPAS | Tìm kiếm tham số tối ưu cho thuật toán FairDEN
-| `src/experiments/student_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập Student | Tìm kiếm tham số tối ưu cho thuật toán FairDEN
-| `src/experiments/census_experiment.py` | Thực nghiệm trên tập dữ liệu Census | Gôm cụm công bằng trên dữ liệu nhiều biến nhạy cảm
-| `src/experiments/census_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập Census | Tìm kiếm tham số tối ưu cho thuật toán FairDEN
+| `src/experiments/compas_experiment.py` | Thực nghiệm trên tập dữ liệu COMPAS | Phân cụm công bằng trên dữ liệu thực tế
+| `src/experiments/student_experiment.py` | Thực nghiệm trên tập dữ liệu Student Performance | Phân cụm công bằng trên dữ liệu thực tế, Phân cụm với dữ liệu nhiều biến phân loại
+| `src/experiments/compas_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập COMPAS | Tìm kiếm tham số tối ưu cho thuật toán FairDen
+| `src/experiments/student_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập Student | Tìm kiếm tham số tối ưu cho thuật toán FairDen
+| `src/experiments/census_experiment.py` | Thực nghiệm trên tập dữ liệu Census | Phân cụm công bằng trên dữ liệu có nhiều thuộc tính nhạy cảm
+| `src/experiments/census_hyperparam_search.py` | Tối ưu hóa siêu tham số cho tập Census | Tìm kiếm tham số tối ưu cho thuật toán FairDen
 ---
 
-## Three moons (Ba trăng khuyết)
+## Tập dữ liệu Three moons (Ba trăng khuyết)
 
 ![Three Moons](auxiliary/Plots/MotivationFairDen.png)
 
@@ -38,7 +33,7 @@ pip install -r requirements.txt
 ## Các thực nghiệm
 ### I. Tìm kiếm siêu tham số
 
-Tối ưu hóa tham số DBSCAN cho các tập dữ liệu COMPAS và Student Performance được nhóm thêm vào dựa trên Methodology của tác giả.
+Nhóm đã bổ sung việc tối ưu hóa siêu tham số DBSCAN cho các tập dữ liệu COMPAS và Student Performance dựa trên phương pháp của tác giả
 
 #### Cách chạy thực nghiệm
 ```python
@@ -68,7 +63,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### II. Thực nghiệm k-line
+### II. Thực nghiệm về độ ổn định đối với số lượng cụm ($k$)
 #### Kết quả của tác giả trong bài báo gốc:
 ![Line plots](auxiliary/Plots/Lineplot_adult_both.svg)
 ![Legend](auxiliary/Plots/Legend.png)
@@ -87,7 +82,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### III. Thực nghiệm Categorical attributes:
+### III. Thực nghiệm với thuộc tính phân loại:
 
 ```python
 from src.experiments.categorical_experiments import categorical_experiments
@@ -96,7 +91,7 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-### IV. Thực nghiệm Multiple sensitive attribute:
+### IV. Thực nghiệm với nhiều thuộc tính nhạy cảm:
 ```python
 from src.experiments.adult_experiment import adult_experiment
 from src.experiments.census_experiment import census_experiment
@@ -111,7 +106,7 @@ if __name__ == "__main__":
 
 ## Cấu trúc thư mục
 
-> **Lưu ý:** Các file/thư mục không được mô tả chức năng là các file gốc hoặc test của tác giả, nhóm không sử dụng đến.
+> **Lưu ý:** Các file/thư mục không được mô tả chức năng là các file gốc hoặc kiểm thử của tác giả mà nhóm không sử dụng đến.
 
 ```bash
 .
