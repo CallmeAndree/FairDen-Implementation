@@ -28,6 +28,12 @@ from src.experiments.census_experiment import census_experiment
 # perform all experiments
 def main():
     # UNCOMMENT TO RUN
+    '''Search optimal DBSCAN params for COMPAS'''
+    # compas_hyperparameter_search() 
+    '''Search optimal DBSCAN params for Student'''
+    # student_hyperparameter_search() 
+    '''Search optimal DBSCAN params for Census configs'''
+    # census_hyperparam_search() 
     '''Fair clustering of Real-World data'''
     # realworld_experiment() 
     '''Categorical experiments'''
@@ -35,17 +41,9 @@ def main():
     '''K-Experiments'''
     k_line_multi() 
     # compas_experiment()
-    '''Real-World experiments'''
-    # realworld_experiment() 
-    '''Search optimal DBSCAN params for COMPAS'''
-    # compas_hyperparameter_search() 
-    '''Search optimal DBSCAN params for Student'''
-    # student_hyperparameter_search() 
-    '''Search optimal DBSCAN params for Census configs'''
-    # census_hyperparam_search() 
     '''Fair clustering of multiple sensitive attributes'''
     # adult_experiment()
-    # census_experiment() 
+    census_experiment() 
     pass
 
 

@@ -1,13 +1,26 @@
 {
   "name": "bank",
   "file_name": "data/realworld/bank-full.csv",
-  "sensitive_attrs": ["marital"],
-  "sensitive_values": ["single", "married","divorced"],
-  "columns": ["age", "balance", "duration"],
-  "categorical_features": ["job","education"],
+  "sensitive_attrs": [
+    "marital"
+  ],
+  "sensitive_values": [
+    "single",
+    "married",
+    "divorced"
+  ],
+  "columns": [
+    "age",
+    "balance",
+    "duration"
+  ],
+  "categorical_features": [
+    "job",
+    "education"
+  ],
   "n_clusters": 2,
   "target": "y",
-  "random_state" : 21,
+  "random_state": 21,
   "n_samples": 5000,
   "DBSCAN_min_pts": 4,
   "DBSCAN_eps": 1.5,

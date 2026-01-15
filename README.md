@@ -171,10 +171,6 @@ if __name__ == "__main__":
 │   ├── kline_adult_comparison.png  # K-line cho Adult
 │   ├── kline_compas_comparison.png # K-line cho COMPAS
 │   └── ...
-│ 
-├── Report/                         # Báo cáo LaTeX (bổ sung của nhóm)
-│   ├── content/                    # Nội dung các section
-│   └── main.tex                    # File LaTeX chính
 │
 ├── .gitignore                      
 ├── LICENSE                         
