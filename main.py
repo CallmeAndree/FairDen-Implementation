@@ -33,7 +33,7 @@ def main():
     '''Categorical experiments'''
     # categorical_experiments() 
     '''K-Experiments'''
-    # k_line_multi() 
+    k_line_multi() 
     # compas_experiment()
     '''Real-World experiments'''
     # realworld_experiment() 
